@@ -1,1 +1,20 @@
-Finish Designing GUI
+Figure out all features to be included
+    -Healer
+        -Spells
+        -Potions
+    -Ammo restocker
+    -Botting
+        -Hunting
+        -Looting
+        -Scripting
+            -Loading
+            -Saving
+    -Player alert
+    -Spell training
+    -X-Ray? (This may be beyond me. I will save this as something I want to at least attempt.)
+    -Zezenia client customizing (Zooming in/out. Resizing and moving and removing things.)
+
+Finish designing GUI
+
+Create Interfaces for Native Mappings
+
