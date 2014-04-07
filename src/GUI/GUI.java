@@ -16,18 +16,17 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         core = new Core();
         initComponents();
-        
+
         //This task makes the heart beat every 100ms
-        
         timer = new Timer();
-        task = new TimerTask(){
+        task = new TimerTask() {
 
             @Override
             public void run() {
                 core.cycle();
             }
         };
-        
+
         timer.scheduleAtFixedRate(task, 0, 100);//task repeats every 100ms
     }
 
@@ -47,6 +46,9 @@ public class GUI extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("JonBot - NG");
+        setName("window"); // NOI18N
+        setResizable(false);
 
         jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
@@ -131,7 +133,6 @@ public class GUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
     public static void main(String args[]) {
         try {
