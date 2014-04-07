@@ -19,9 +19,9 @@ public class Core {
     */
     public static void cycle() {
         curTime = System.currentTimeMillis();
-        if(curTime - oldTime > 100){
+        if(curTime - oldTime > 1000){
             oldTime = curTime;
-            
+            System.out.println(curTime);
         }
     }
     

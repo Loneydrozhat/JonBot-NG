@@ -1,7 +1,8 @@
 package GUI;
 
 import Core.Core;
-import java.awt.Graphics;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -9,10 +10,25 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class GUI extends javax.swing.JFrame {
 
     private static Core core;
+    private static Timer timer;
+    private static TimerTask task;
 
     public GUI() {
         core = new Core();
         initComponents();
+        
+        //This task makes the heart beat every 100ms
+        
+        timer = new Timer();
+        task = new TimerTask(){
+
+            @Override
+            public void run() {
+                core.cycle();
+            }
+        };
+        
+        timer.scheduleAtFixedRate(task, 0, 100);//task repeats every 100ms
     }
 
     @SuppressWarnings("unchecked")
@@ -133,13 +149,7 @@ public class GUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI() {
-                    @Override
-                    public void paint(Graphics g) {
-                        this.paintComponents(g);
-                        core.cycle();
-                    }
-                }.setVisible(true);
+                new GUI().setVisible(true);
             }
         });
     }
