@@ -1,9 +1,10 @@
 package Core;
 
 import CaveBot.CaveBot;
+import GUI.GUI;
 import Healer.Healer;
 
-public class Core {
+public class Core{
     
     private static Healer healer;
     private static CaveBot caveBot;
@@ -29,6 +30,8 @@ public class Core {
         curTime = System.currentTimeMillis();
         if(curTime - oldTime > 1000){
             oldTime = curTime;
+            
+            GUI.debug.append(curTime+"\n");
             
             healer.heal();
             caveBot.bot();

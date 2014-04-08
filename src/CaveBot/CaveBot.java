@@ -1,5 +1,7 @@
 package CaveBot;
 
+import GUI.GUI;
+
 public class CaveBot {
 
     /*

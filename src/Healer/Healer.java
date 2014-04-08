@@ -1,5 +1,7 @@
 package Healer;
 
+import GUI.GUI;
+
 public class Healer {
     
     //Health variables
@@ -45,12 +47,21 @@ public class Healer {
     private static void checkHealth() {
     }
 
+    /*
+    Checks the players currentMana, comparing it to their set restore %.
+    */
     private static void checkMana() {
     }
 
+    /*
+    Restores health if checkHealth decided it was neccessary.
+    */
     private static void restoreHealth() {
     }
 
+    /*
+    Restores mana if checkMana decided it was neccessary.
+    */
     private static void restoreMana() {
     }
     
