@@ -3,6 +3,7 @@ package Core;
 import CaveBot.CaveBot;
 import GUI.GUI;
 import Healer.Healer;
+import JNA.JNACore;
 
 public class Core{
     
@@ -11,6 +12,8 @@ public class Core{
     
     private static long curTime;
     private static long oldTime;
+    
+    private static boolean didOnce = false;
     
     
     /*
@@ -28,6 +31,11 @@ public class Core{
     */
     public static void cycle() {
         curTime = System.currentTimeMillis();
+        if(didOnce == false){
+            //System.out.println(MemoryHandler.returnPID());
+            JNACore.getProcesses();
+            didOnce = true;
+        }
         if(curTime - oldTime > 1000){
             oldTime = curTime;
             
