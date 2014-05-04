@@ -1,6 +1,9 @@
 JonBot-NG
 =========
 
+![alt tag](http://i.imgur.com/NSAIqpq.png)
+
+
 The third and final iteration of my Zezenia Automation tool.
 
 JonBot, the first iteration was nothing more than key and mouse stroke automation. Watching the screen, and reacting to
