@@ -17,4 +17,6 @@ public interface Kernel32 extends StdCallLibrary {
 
     boolean CloseHandle(Pointer hObject);
 
+    public Pointer GetCurrentProcess();
+
 }

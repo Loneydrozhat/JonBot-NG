@@ -1,24 +1,31 @@
-Figure out all features to be included
+================================================================================
+    CRUCIAL BELOW
+================================================================================
     -Healer
-        -Spells
-        -Potions
-    -Ammo restocker
+        -when pausing/unpausing bot, enable/disable fields, and when pausing,
+            update the fields that reflect those values rather than having to
+            constantly read the values from the field. should be slightly faster
+    -Autohaste
+    -AntiParalyze
+
     -Botting
-        -Hunting
-        -Looting
-        -Scripting
-            -Loading
-            -Saving
-    -Player alert
-    -Spell training
+        -Keep Distance
+            -when we are attacking a monster, set attacking to true, and as long
+                as attacking is true, we walk the waypoints backwards
+        -Targeting
+            -continue searching for memory address of target monsters x,y,z values
+    -Scripting
+        -Use way-point
+        -Say way-point
+        -Near way-point
+
+
+================================================================================
+    EXTRANEOUS BELOW
+================================================================================
+
     -X-Ray? (This may be beyond me. I will save this as something I want to at least attempt.)
+                -Change the z level of all monsters in memory.
+                -Change their pictures to a table or something
+                -Change their names. Add a + or a - at the end for above/below
     -Zezenia client customizing (Zooming in/out. Resizing and moving and removing things.)
-
-Finish designing GUI
-
-Flesh out the skeleton
-    -Design the functions
-        -Implement the functions according to specifications
-
-Create Interfaces for Native Mappings
-
