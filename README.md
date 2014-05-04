@@ -20,7 +20,9 @@ complete, and cleaner tool for the end user.
 Required Libraries
 ==================
 JNA - https://github.com/twall/jna
+
 JIntelliType - http://code.google.com/p/jintellitype/
+
 DS Explorer - https://code.google.com/p/dsexplorer/
 
 
@@ -29,7 +31,11 @@ Compilation instructions
 =========================
 
 Using netbeans, create a new project.
+
 Add the above libraries to the project.
+
 Add source files found here.
+
 Compile.
+
 Enjoy.
