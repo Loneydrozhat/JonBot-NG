@@ -87,6 +87,6 @@ Creating Scripts
 Withing the cavebot open, and logged into the game, walk arround (preferably in straight lines)
 adding waypoints to the current script.
 
-You can add a waypoint either by presseing 'Alt+a', or the add waypoint buttons in the bot.
+You can add a waypoint either by pressing 'Alt+a', or the add waypoint buttons in the bot.
 
 When finished, save your script.
