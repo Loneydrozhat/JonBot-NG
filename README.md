@@ -33,34 +33,34 @@ DS Explorer - https://code.google.com/p/dsexplorer/
 Compilation instructions
 =========================
 
-Using netbeans, create a new project.
+1) - Using netbeans, create a new project.
 
-Add the above libraries to the project.
+2) - Add the above libraries to the project.
 
-Add source files found here.
+3) - Add source files found here.
 
-Compile.
+4) - Compile.
 
-Enjoy.
+5) - Enjoy.
 
 
 ================
 Non-Cavebot Use
 ================
 
-Start zezenia.
+1) - Start zezenia.
 
-Log into the game.
+2) - Log into the game.
 
-Start the bot.
+3) - Start the bot.
 
-Set your settings.
+4) - Set your settings.
 
-Make sure you set your backpacks. This step is crucial.
+5) - Make sure you set your backpacks. This step is crucial.
 
-Save your settings, if you haven't.
+6) - Save your settings, if you haven't.
 
-Open your backpacks in the order that you specified in the bot. This step is non-negotiable. The loot backpack, containing the 24 empty loot backpacks must be fully extended. 
+7) - Open your backpacks in the order that you specified in the bot. This step is non-negotiable. The loot backpack, containing the 24 empty loot backpacks must be fully extended. 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -70,31 +70,31 @@ First open the main backpack. then open the health potion bp. Next open the mana
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-In the bot, check every feature you want to use, and press start.
+8) - In the bot, check every feature you want to use, and press start.
 
-You have 3 seconds to tab back to the game before things start running.
+9) - You have 3 seconds to tab back to the game before things start running.
 
 
 =============
 Cavebot Use
 =============
 
-Do the above.
+1) - Do the above.
 
-Load, or create a script.
+2) - Load, or create a script.
 
-Goto the start point, and press start in the cavebot tab.
+3) - Goto the start point, and press start in the cavebot tab.
 
-You have 3 seconds to tab back to the game before the cavebot starts.
+4) - You have 3 seconds to tab back to the game before the cavebot starts.
 
 
 =================
 Creating Scripts
 =================
 
-Withing the cavebot open, and logged into the game, walk arround (preferably in straight lines)
+1) - Withing the cavebot open, and logged into the game, walk arround (preferably in straight lines)
 adding waypoints to the current script.
 
-You can add a waypoint either by pressing 'Alt+a', or the add waypoint buttons in the bot.
+2) - You can add a waypoint either by pressing 'Alt+a', or the add waypoint buttons in the bot.
 
-When finished, save your script.
+3) - When finished, save your script.
