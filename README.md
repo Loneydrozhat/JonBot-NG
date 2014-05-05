@@ -42,3 +42,51 @@ Add source files found here.
 Compile.
 
 Enjoy.
+
+
+================
+Non-Cavebot Use
+================
+
+Start zezenia.
+
+Log into the game.
+
+Start the bot.
+
+Set your settings.
+
+Make sure you set your backpacks. This step is crucial.
+
+Save your settings, if you haven't.
+
+Open your backpacks in the order that you specified in the bot. This step is non-negotiable.
+
+In the bot, check every feature you want to use, and press start.
+
+You have 3 seconds to tab back to the game before things start running.
+
+
+=============
+Cavebot Use
+=============
+
+Do the above.
+
+Load, or create a script.
+
+Goto the start point, and press start in the cavebot tab.
+
+You have 3 seconds to tab back to the game before the cavebot starts.
+
+
+=================
+Creating Scripts
+=================
+
+Withing the cavebot open, and logged into the game, walk arround (preferably in straight lines)
+adding waypoints to the current script.
+
+You can add a waypoint either by presseing 'Alt+a', or the add waypoint buttons in the bot.
+
+When finished, save your script.
