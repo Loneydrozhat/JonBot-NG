@@ -66,7 +66,7 @@ Non-Cavebot Use
 
 [Example Ordering] Main backpack - 1, Mana BP - 3, Health Potion BP - 2, Loot BP - 5, Food BP - 4
 
-First open the main backpack. then open the health potion bp. Next open the mana potion backpack followed by the food backpack. Next, open the backpack containing the loot backpacks, and finally, open the first loot backpack.
+First open the main backpack, then open the health potion bp. Next open the mana potion backpack followed by the food backpack. Next, open the backpack containing the loot backpacks and fully extend it, and finally, open the first loot backpack.
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
