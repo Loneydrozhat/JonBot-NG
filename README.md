@@ -60,7 +60,11 @@ Make sure you set your backpacks. This step is crucial.
 
 Save your settings, if you haven't.
 
-Open your backpacks in the order that you specified in the bot. This step is non-negotiable.
+Open your backpacks in the order that you specified in the bot. This step is non-negotiable. The loot backpack, containing the 24 empty loot backpacks must be fully extended. 
+
+[Example Ordering] Main backpack - 1, Mana BP - 3, Health Potion BP - 2, Loot BP - 5, Food BP - 4
+
+First open the main backpack. then open the health potion bp. Next open the mana potion backpack followed by the food backpack. Next, open the backpack containing the loot backpacks, and finally, open the first loot backpack.
 
 In the bot, check every feature you want to use, and press start.
 
