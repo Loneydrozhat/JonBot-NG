@@ -88,7 +88,7 @@ public class Walker {
             //now move as needed
             moveX();
             moveY();
-            
+
             //after moving, set the old delay back
             reader.robot.setAutoDelay(oldDelay);
         }
@@ -267,46 +267,13 @@ public class Walker {
     }
 
     /*
-     Attempt to maneuver around whatever obstacle is in our way.
-     */
-    private void moveDiagnol() {
-        int xDifference = xDestination - reader.getXCoord();
-        int yDifference = yDestination - reader.getYCoord();
-        xDifference = Math.abs(xDifference);
-        yDifference = Math.abs(yDifference);
-        //try to move smartly first
-        if (xDifference > yDifference) {
-            moveX();
-        }
-        if (yDifference > xDifference) {
-            moveY();
-        } else {
-            moveY();
-        }
-        //update to check for progress made
-        updateAttempts();
-        //if none, try again
-        if (triedMovingX && triedMovingY) {
-            moveX();
-        }
-    }
-
-    /*
      Returns true if we are at square of the target location
      */
     private boolean at(int xLoc, int yLoc) {
         int xDifference = xLoc - reader.getXCoord();
         int yDifference = yLoc - reader.getYCoord();
 
-        //testing exact waypoints
-        //xDifference == 1 || xDifference == -1 || 
-        if (xDifference == 0) {
-            //yDifference == 1 || yDifference == -1 || 
-            if (yDifference == 0) {
-                return true;
-            }
-        }
-        return false;
+        return xDifference == 0 && yDifference == 0;
     }
 
     /*

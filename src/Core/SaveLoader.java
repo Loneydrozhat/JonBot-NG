@@ -87,12 +87,4 @@ public class SaveLoader {
             GUI.GUI.debug.append("Error closing settings file after reading.\n");
         }
     }
-
-    public static void saveScript() {
-
-    }
-
-    public static void loadScript() {
-
-    }
 }

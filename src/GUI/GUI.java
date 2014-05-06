@@ -877,6 +877,7 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
      */
     private void saveMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuButtonActionPerformed
         SaveLoader.saveSettings();
+        debug.append("Setings saved to your My Documents folder.\n");
     }//GEN-LAST:event_saveMenuButtonActionPerformed
 
     /*
@@ -919,6 +920,7 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
             } catch (IOException e) {
                 debug.append("Couldnt save script for some reason.");
             }
+            debug.append("Script saved as : " + file.getName() + "\n");
         }
     }//GEN-LAST:event_saveScriptMenuButtonActionPerformed
 

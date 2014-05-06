@@ -10,7 +10,6 @@ import java.awt.Toolkit;
 public class ZezeniaHandler {
 
     private static ZezeniaHandler instance = null;
-    private static boolean ranOnce = false;
 
     public Robot robot;
 

@@ -3,9 +3,9 @@ package CaveBot;
 public class ScriptInterpreter {
 
     private static ScriptInterpreter instance = null;
-    private Walker walker;
-    private Talker talker;
-    private User user;
+    private final Walker walker;
+    private final Talker talker;
+    private final User user;
 
     /*
      Private constructor for singleton creation

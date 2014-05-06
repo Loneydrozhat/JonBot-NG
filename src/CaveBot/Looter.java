@@ -21,7 +21,7 @@ public class Looter {
     private final int extendedBPVerticalSize = 240;
     private final int tileSize;
     private final Point center;
-    
+
     //mouse information
     private Point oldLocation;
 
@@ -92,6 +92,8 @@ public class Looter {
         //if we have filled all loot bps, there is nothing we can do.
         if (currentLootBP > 24) {
             System.out.println("current bp is : " + currentLootBP);
+            GUI.GUI.debug.append("All BP's are considered full. Empty BP's and"
+                    + " reset bot to continue.\n");
             return;
         }
         //otherwise, check
@@ -146,11 +148,6 @@ public class Looter {
     private void openNextBag() {
         int bpX = dimensions.width - 130;
         int bpY = ((GUI.GUI.lootBPSelector.getSelectedIndex() + 1) * 90) - 30;
-
-        reader.robot.mouseMove(dimensions.width - 10, (Core.Core.returnNumberOfBackpacks() * 90) + extendedBPVerticalSize - 20);
-        reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
-        reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);
-        System.out.println("clicked at : " + (dimensions.width - 10) + "," + ((Core.Core.returnNumberOfBackpacks() * 90) + extendedBPVerticalSize - 20));
 
         //now for the long but easy to read code that decides which bp to open next.
         //1st bp column
@@ -402,57 +399,57 @@ public class Looter {
         //west of player
         reader.robot.mouseMove(center.x - tileSize, center.y);
         if (reader.getMouseTargetID() == 0) {
-            reader.robot.mousePress(KeyEvent.BUTTON3_MASK);
-            reader.robot.mouseRelease(KeyEvent.BUTTON3_MASK);
+            reader.robot.mousePress(MouseEvent.BUTTON3_MASK);
+            reader.robot.mouseRelease(MouseEvent.BUTTON3_MASK);
         }
         //northwest of player
         reader.robot.mouseMove(center.x - tileSize, center.y - tileSize);
         if (reader.getMouseTargetID() == 0) {
-            reader.robot.mousePress(KeyEvent.BUTTON3_MASK);
-            reader.robot.mouseRelease(KeyEvent.BUTTON3_MASK);
+            reader.robot.mousePress(MouseEvent.BUTTON3_MASK);
+            reader.robot.mouseRelease(MouseEvent.BUTTON3_MASK);
         }
         //above of player
         reader.robot.mouseMove(center.x, center.y - tileSize);
         if (reader.getMouseTargetID() == 0) {
-            reader.robot.mousePress(KeyEvent.BUTTON3_MASK);
-            reader.robot.mouseRelease(KeyEvent.BUTTON3_MASK);
+            reader.robot.mousePress(MouseEvent.BUTTON3_MASK);
+            reader.robot.mouseRelease(MouseEvent.BUTTON3_MASK);
         }
 
         //northeast of player
         reader.robot.mouseMove(center.x + tileSize, center.y - tileSize);
         if (reader.getMouseTargetID() == 0) {
-            reader.robot.mousePress(KeyEvent.BUTTON3_MASK);
-            reader.robot.mouseRelease(KeyEvent.BUTTON3_MASK);
+            reader.robot.mousePress(MouseEvent.BUTTON3_MASK);
+            reader.robot.mouseRelease(MouseEvent.BUTTON3_MASK);
         }
         //east of player
         reader.robot.mouseMove(center.x + tileSize, center.y);
         if (reader.getMouseTargetID() == 0) {
-            reader.robot.mousePress(KeyEvent.BUTTON3_MASK);
-            reader.robot.mouseRelease(KeyEvent.BUTTON3_MASK);
+            reader.robot.mousePress(MouseEvent.BUTTON3_MASK);
+            reader.robot.mouseRelease(MouseEvent.BUTTON3_MASK);
         }
         //southeast of player
         reader.robot.mouseMove(center.x + tileSize, center.y + tileSize);
         if (reader.getMouseTargetID() == 0) {
-            reader.robot.mousePress(KeyEvent.BUTTON3_MASK);
-            reader.robot.mouseRelease(KeyEvent.BUTTON3_MASK);
+            reader.robot.mousePress(MouseEvent.BUTTON3_MASK);
+            reader.robot.mouseRelease(MouseEvent.BUTTON3_MASK);
         }
         //south of player
         reader.robot.mouseMove(center.x, center.y + tileSize);
         if (reader.getMouseTargetID() == 0) {
-            reader.robot.mousePress(KeyEvent.BUTTON3_MASK);
-            reader.robot.mouseRelease(KeyEvent.BUTTON3_MASK);
+            reader.robot.mousePress(MouseEvent.BUTTON3_MASK);
+            reader.robot.mouseRelease(MouseEvent.BUTTON3_MASK);
         }
         //southwest of player
         reader.robot.mouseMove(center.x - tileSize, center.y + tileSize);
         if (reader.getMouseTargetID() == 0) {
-            reader.robot.mousePress(KeyEvent.BUTTON3_MASK);
-            reader.robot.mouseRelease(KeyEvent.BUTTON3_MASK);
+            reader.robot.mousePress(MouseEvent.BUTTON3_MASK);
+            reader.robot.mouseRelease(MouseEvent.BUTTON3_MASK);
         }
         //underneath us
         reader.robot.mouseMove(center.x, center.y);
         if (reader.getMouseTargetID() == 0) {
-            reader.robot.mousePress(KeyEvent.BUTTON3_MASK);
-            reader.robot.mouseRelease(KeyEvent.BUTTON3_MASK);
+            reader.robot.mousePress(MouseEvent.BUTTON3_MASK);
+            reader.robot.mouseRelease(MouseEvent.BUTTON3_MASK);
         }
         reader.robot.setAutoDelay(oldDelay);
     }
@@ -537,6 +534,7 @@ public class Looter {
                     return;
                 }
             }
+            stackItems();
         }
 
         //loot 3rd open corpse
@@ -570,6 +568,7 @@ public class Looter {
                     return;
                 }
             }
+            stackItems();
         }
 
         //Move back to old location
@@ -580,12 +579,21 @@ public class Looter {
      */
 
     private void stackItems() {
+
         int oldDelay = reader.robot.getAutoDelay();
         int stackDelay = 20;
-        reader.robot.setAutoDelay(stackDelay);
+
         int numBPS = Core.Core.returnNumberOfBackpacks();
         int lootBPX = dimensions.width - 130;
         int lootBPY = (numBPS * 90) + extendedBPVerticalSize + 105;
+
+        //if there is nothing to stack, return
+        if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 1, true), ZezeniaHandler.base), 4).getInt(0) == 0) {
+            return;
+        }
+
+        //set robot new timing
+        reader.robot.setAutoDelay(stackDelay);
 
         //and if the first and third slots contain the same type of item
         if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 1, true), ZezeniaHandler.base), 4).getInt(0)
@@ -613,6 +621,24 @@ public class Looter {
                 reader.robot.keyPress(KeyEvent.VK_CONTROL);
                 reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
                 reader.robot.mouseMove(lootBPX + 40, lootBPY);
+                reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);
+                reader.robot.keyRelease(KeyEvent.VK_CONTROL);
+                reader.robot.delay(20);
+                reader.robot.keyPress(KeyEvent.VK_ENTER);
+                reader.robot.keyRelease(KeyEvent.VK_ENTER);
+                reader.robot.setAutoDelay(oldDelay);
+            }
+        }
+
+        //finally, check the 2nd and third after stacking the previous two
+        if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 2, true), ZezeniaHandler.base), 4).getInt(0)
+                == jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, true), ZezeniaHandler.base), 4).getInt(0)) {
+            //if the third slot has less than 100 items
+            if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, false), ZezeniaHandler.base), 4).getInt(0) < 100) {
+                reader.robot.mouseMove(lootBPX + 40, lootBPY);
+                reader.robot.keyPress(KeyEvent.VK_CONTROL);
+                reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
+                reader.robot.mouseMove(lootBPX + 80, lootBPY);
                 reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);
                 reader.robot.keyRelease(KeyEvent.VK_CONTROL);
                 reader.robot.delay(20);
