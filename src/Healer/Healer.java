@@ -29,12 +29,11 @@ public class Healer {
     private static Long lastPotTime;
     private static Long lastManaTime;
     private final int delay = 1050;
-    
+
     //location objects
     private Point oldLocation;
     private int healthPotionX;
     private int healthPotionY;
-    
 
     //size objects
     private int manaPercent;
@@ -61,8 +60,8 @@ public class Healer {
     }
 
     /*
-    Returns this singleton instance of Healer
-    */
+     Returns this singleton instance of Healer
+     */
     public static Healer getInstance() {
         if (instance == null) {
             instance = new Healer();
@@ -136,12 +135,14 @@ public class Healer {
                 System.out.println("using a health potion");
             }
             needHpLow = false;
+            needHpHigh = false;
             return;
         }
         if (needHpHigh == true && canCast) {
             if (GUI.spellCheck.isSelected()) {
                 spellHeal();
             }
+            needHpHigh = false;
         }
     }
 
@@ -167,8 +168,8 @@ public class Healer {
             return;
         }
         if (reader.getHealth() < Integer.valueOf(GUI.highHealBox.getText())) {
-            reader.robot.keyPress(KeyEvent.VK_F11);
-            reader.robot.keyRelease(KeyEvent.VK_F11);
+            reader.robot.keyPress(KeyEvent.VK_F12);
+            reader.robot.keyRelease(KeyEvent.VK_F12);
             canCast = false;
             lastCastTime = System.currentTimeMillis();
             return;
