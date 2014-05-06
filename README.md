@@ -1,5 +1,5 @@
-JonBot-NG
-=========
+JonBot-NG for 64 bit pc's.
+==========================
 
 ![alt tag](http://i.imgur.com/NSAIqpq.png)
 
