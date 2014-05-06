@@ -12,10 +12,6 @@ public class Core {
     private static CaveBot caveBot;
     private static Misc misc;
 
-    private static long curTime;
-    private static long oldTime;
-    private final long cycleDelay = 1;
-
     private boolean setBPS = false;
     private static int totalBackpacks = 4;
 
@@ -26,22 +22,15 @@ public class Core {
         healer = Healer.getInstance();
         caveBot = CaveBot.getInstance();
         misc = Misc.getInstance();
-
-        //initialize timing variables
-        curTime = System.currentTimeMillis();
-        oldTime = System.currentTimeMillis();
     }
 
     /*
      Here is the main loop of the whole application. The heart.
      */
     public void cycle() {
-        curTime = System.currentTimeMillis();
-
         //Every 10ms we cycle and do the actions below
-        if (curTime - oldTime > cycleDelay && !GUI.isPaused) {
+        if (!GUI.isPaused) {
             //update the timing
-            oldTime = curTime;
 
             //make sure we gave the user enough time to tab back to the game
             if (System.currentTimeMillis() - GUI.healStartTime > GUI.startDelay) {
@@ -54,11 +43,10 @@ public class Core {
                 if (GUI.lootCheck.isSelected()) {
                     Looter.getInstance().findLoot();
                 }
-
             }
             //do the misc things
             misc.doMisc();
-            
+
             //check to see if hunting is started and that the user has had
             //enough time to tab back to the game. then cycle through hunting bot
             //actions

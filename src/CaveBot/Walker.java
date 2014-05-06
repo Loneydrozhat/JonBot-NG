@@ -23,7 +23,7 @@ public class Walker {
     //too low a value results in keypresses being lost and not reaching the client
     //too high results in slow movement of the character.
     private int movementDelay = 100;
-    private final int robotDelay = 10;
+    private final int robotDelay = 25;
 
     //the location to move to
     private int xDestination = 0;

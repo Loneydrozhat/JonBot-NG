@@ -21,9 +21,6 @@ public class CaveBot {
     private final Talker talker;
     private final User user;
 
-    private final int actionDelay = 100;
-    private long lastAction = 0;
-
     private static CaveBot instance = null;
 
     /*
@@ -69,16 +66,12 @@ public class CaveBot {
      Act upon the interpreted line.
      */
     private void doAction() {
-        if (System.currentTimeMillis() - lastAction > actionDelay) {
-            //System.out.println(" " + attacking + " " + looting + " " + walking);
-            lastAction = System.currentTimeMillis();
-            targeting.findTarget();
+        targeting.findTarget();
 
-            if (!looting && !attacking) {
-                talker.talk();
-                user.use();
-                walker.move();
-            }
+        if (!looting && !attacking) {
+            //talker.talk();
+            //user.use();
+            walker.move();
         }
     }
 

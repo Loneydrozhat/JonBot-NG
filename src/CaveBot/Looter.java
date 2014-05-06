@@ -63,10 +63,9 @@ public class Looter {
         if (CaveBot.getInstance().isLooting() && !CaveBot.getInstance().isAttacking()) {
             clickAroundPlayer();
         }
+        //save old location so we can move back there afterwards
         oldLocation = MouseInfo.getPointerInfo().getLocation();
         if (bpOpened()) {
-            //save old location so we can move back there afterwards
-
             while (bpOpened() && (!GUI.GUI.isPaused || !GUI.GUI.caveBotIsPaused)) {
                 Walker.getInstance().stopMoving();
                 lootCorpses();
@@ -99,8 +98,14 @@ public class Looter {
         //otherwise, check
         if (isFull()) {
             System.out.println("bp was detected as full");
+            int delay = 25;
+            int oldDelay = reader.robot.getAutoDelay();
+            reader.robot.setAutoDelay(delay);
             closeExtraBags();
+            closeLootBP();
+            reader.robot.delay(100);
             openNextBag();
+            reader.robot.setAutoDelay(oldDelay);
         }
     }
 
@@ -129,7 +134,6 @@ public class Looter {
         while (bpOpened()) {
             closeCorpses();
         }
-        closeLootBP();
     }
 
     /*
@@ -530,8 +534,7 @@ public class Looter {
 
                 if (System.currentTimeMillis() - startedLooting > 300) {
                     closeCorpses();
-                    reader.robot.mouseMove(oldLocation.x, oldLocation.y);
-                    return;
+                    break;
                 }
             }
             stackItems();
@@ -564,11 +567,11 @@ public class Looter {
 
                 if (System.currentTimeMillis() - startedLooting > 300) {
                     closeCorpses();
-                    reader.robot.mouseMove(oldLocation.x, oldLocation.y);
-                    return;
+                    break;
                 }
             }
             stackItems();
+            reader.robot.mouseMove(oldLocation.x, oldLocation.y);;
         }
 
         //Move back to old location
@@ -599,7 +602,8 @@ public class Looter {
         if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 1, true), ZezeniaHandler.base), 4).getInt(0)
                 == jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, true), ZezeniaHandler.base), 4).getInt(0)) {
             //if the third slot is a stack of less than 100
-            if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, false), ZezeniaHandler.base), 4).getInt(0) < 100) {
+            if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, false), ZezeniaHandler.base), 4).getInt(0) < 100
+                    && jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, false), ZezeniaHandler.base), 4).getInt(0) > 0) {
                 reader.robot.mouseMove(lootBPX, lootBPY);
                 reader.robot.keyPress(KeyEvent.VK_CONTROL);
                 reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
@@ -616,7 +620,8 @@ public class Looter {
         if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 1, true), ZezeniaHandler.base), 4).getInt(0)
                 == jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 2, true), ZezeniaHandler.base), 4).getInt(0)) {
             //if the second slot has less than 100 items
-            if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 2, false), ZezeniaHandler.base), 4).getInt(0) < 100) {
+            if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 2, false), ZezeniaHandler.base), 4).getInt(0) < 100
+                    && jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 2, false), ZezeniaHandler.base), 4).getInt(0) > 0) {
                 reader.robot.mouseMove(lootBPX, lootBPY);
                 reader.robot.keyPress(KeyEvent.VK_CONTROL);
                 reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
@@ -634,7 +639,8 @@ public class Looter {
         if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 2, true), ZezeniaHandler.base), 4).getInt(0)
                 == jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, true), ZezeniaHandler.base), 4).getInt(0)) {
             //if the third slot has less than 100 items
-            if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, false), ZezeniaHandler.base), 4).getInt(0) < 100) {
+            if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, false), ZezeniaHandler.base), 4).getInt(0) < 100
+                    && jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, false), ZezeniaHandler.base), 4).getInt(0) > 0) {
                 reader.robot.mouseMove(lootBPX + 40, lootBPY);
                 reader.robot.keyPress(KeyEvent.VK_CONTROL);
                 reader.robot.mousePress(MouseEvent.BUTTON1_MASK);

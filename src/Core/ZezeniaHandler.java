@@ -61,6 +61,7 @@ public class ZezeniaHandler {
         //initilize the robot
         try {
             robot = new Robot();
+            robot.setAutoDelay(1);
         } catch (AWTException ex) {
             GUI.GUI.debug.append("Robot wouldn't start for some reason\n");
         }
