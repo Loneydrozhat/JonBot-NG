@@ -6,17 +6,12 @@ JonBot-NG
 
 The third and final iteration of my Zezenia Automation tool.
 
-JonBot, the first iteration was nothing more than key and mouse stroke automation. Watching the screen, and reacting to
-changes.
+JonBot, the first iteration, watched the pixel colors on the screen, and sent key strokes to the active game window accordingly. Primitive, but functional.
 
-JonBot2, took the original further, digging into the Zezenia clients running memory to read information directly
-from the client instead of watching for pixels changing colors on the screen. A more advanced, but cleaner version
-of the original. This version also included a functional warrior cave bot with a scripter. It would follow the
-scripted path killing monsters and looting them along the way. This version suffered from my lack of deep knowledge
-in how to access and understand an applications memory.
+JonBot 2, the sequel to the first JonBot took the original further with an attempt to add a cavebot to the application. While the endeavor was successful and the bot was functional, the initial setup upon use each time was not user friendly in the least. To this end, development on the second version was halted while I advanced my knowledge.
 
 JonBot-NG seeks to rectify the inadequacies of JonBot2, while at the same time providing a more advanced, more 
-complete, and cleaner tool for the end user.
+complete, and cleaner tool for the end user. No unwieldly setup. No obscure knowledge required. Start the game. Start the bot. Enjot. Nice, clean, simplistic, and most of all, functional. There are still areas that can be improved, but this software is designed in such a way as to facilitate ease of future development.
 
 
 ==================
