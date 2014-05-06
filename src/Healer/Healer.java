@@ -38,7 +38,7 @@ public class Healer {
     //size objects
     private int manaPercent;
     private final double pixelPercent = 1.2;
-    private final int extendedBPVerticalSize = 325;
+    private final int extendedBPVerticalSize = 285;
 
     private static ZezeniaHandler reader;
 
@@ -189,10 +189,10 @@ public class Healer {
             int manaPotionY = 0;
 
             if (GUI.manaBPSelector.getSelectedIndex() < GUI.lootBPSelector.getSelectedIndex()) {
-                manaPotionY = ((GUI.manaBPSelector.getSelectedIndex() + 1) * 90) - 30;
+                manaPotionY = ((GUI.manaBPSelector.getSelectedIndex() + 1) * 90) - 20;
             }
             if (GUI.manaBPSelector.getSelectedIndex() > GUI.lootBPSelector.getSelectedIndex()) {
-                manaPotionY = ((GUI.manaBPSelector.getSelectedIndex() + 1) * 90) - 30
+                manaPotionY = ((GUI.manaBPSelector.getSelectedIndex() + 1) * 90) - 20
                         + extendedBPVerticalSize;
             }
 
@@ -224,7 +224,16 @@ public class Healer {
             oldLocation = new Point(MouseInfo.getPointerInfo().getLocation());
 
             healthPotionX = screenSize.width - 130;
-            healthPotionY = ((GUI.manaBPSelector.getSelectedIndex() + 1) * 90) - 30;
+            healthPotionY = 0;
+
+            if (GUI.healthBPSelector.getSelectedIndex() < GUI.lootBPSelector.getSelectedIndex()) {
+                healthPotionY = ((GUI.healthBPSelector.getSelectedIndex() + 1) * 90) - 20;
+            }
+            if (GUI.healthBPSelector.getSelectedIndex() > GUI.lootBPSelector.getSelectedIndex()) {
+                healthPotionY = ((GUI.healthBPSelector.getSelectedIndex() + 1) * 90) - 20
+                        + extendedBPVerticalSize;
+            }
+
             //move to the new location
             reader.robot.mouseMove(healthPotionX, healthPotionY);
 
