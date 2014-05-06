@@ -67,7 +67,7 @@ public class Looter {
         if (bpOpened()) {
             //save old location so we can move back there afterwards
 
-            while (bpOpened()) {
+            while (bpOpened() && (!GUI.GUI.isPaused || !GUI.GUI.caveBotIsPaused)) {
                 Walker.getInstance().stopMoving();
                 lootCorpses();
                 closeCorpses();
