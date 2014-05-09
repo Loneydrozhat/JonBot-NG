@@ -277,7 +277,7 @@ public class Walker {
     }
 
     /*
-     Returns true if exactly at the the target location
+     Returns true if within 1sqm or less of the target location
      */
     private boolean near(int xLoc, int yLoc) {
         int xDifference = xLoc - reader.getXCoord();

@@ -71,7 +71,6 @@ public class Looter {
                 lootCorpses();
                 closeCorpses();
             }
-            CaveBot.getInstance().setLooting(false);
             reader.robot.mouseMove(oldLocation.x, oldLocation.y);
         }
         //if enough time has passed, check and see if our bp is full.
@@ -79,6 +78,7 @@ public class Looter {
             checkForFullBP();
             reader.robot.mouseMove(oldLocation.x, oldLocation.y);
         }
+        CaveBot.getInstance().setLooting(false);
     }
 
     /*
