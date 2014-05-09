@@ -15,12 +15,7 @@ public class CaveBot {
     private boolean walking = true;
     private boolean using = false;
 
-    public static boolean canCast = false;
-    public static boolean canPot = false;
-    private final int castDelay = 1050;
-    public static Long lastCastTime;
-    public static Long lastPotTime;
-    public static Long lastManaTime;
+    
 
     private final ScriptInterpreter interpreter;
     private final Walker walker;
@@ -40,9 +35,7 @@ public class CaveBot {
         interpreter = ScriptInterpreter.getInstance();
         targeting = Targeting.getInstance();
 
-        lastCastTime = System.currentTimeMillis();
-        lastPotTime = System.currentTimeMillis();
-        lastManaTime = System.currentTimeMillis();
+        
     }
 
     /*
@@ -60,13 +53,7 @@ public class CaveBot {
      the previous two, it moves.
      */
     public void bot() {
-        //refresh canPot and canCast bools
-        if (!canCast && System.currentTimeMillis() - lastCastTime > castDelay) {
-            canCast = true;
-        }
-        if (!canPot && System.currentTimeMillis() - lastPotTime > 1200) {
-            canPot = true;
-        }
+        
         if (!GUI.caveBotIsPaused) {//If the cavebot isnt paused, do stuff
             interpretLine();
             doAction();

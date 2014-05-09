@@ -1,5 +1,6 @@
 package CaveBot;
 
+import Core.Core;
 import Core.ZezeniaHandler;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -154,7 +155,7 @@ public class Targeting {
     }
 
     void attackTarget() {
-        if (CaveBot.canCast && reader.getTargetID() != 0) {
+        if (Core.canCast && reader.getTargetID() != 0) {
             castAttackSpell();
         }
     }
@@ -162,7 +163,7 @@ public class Targeting {
     private void castAttackSpell() {
         reader.robot.keyPress(KeyEvent.VK_F3);
         reader.robot.keyRelease(KeyEvent.VK_F3);
-        CaveBot.canCast = false;
-        CaveBot.lastCastTime = System.currentTimeMillis();
+        Core.canCast = false;
+        Core.lastCastTime = System.currentTimeMillis();
     }
 }

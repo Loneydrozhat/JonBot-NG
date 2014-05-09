@@ -15,6 +15,13 @@ public class Core {
     private boolean setBPS = false;
     private static int totalBackpacks = 4;
 
+    public static boolean canCast = false;
+    public static boolean canPot = false;
+    private final int castDelay = 1050;
+    public static Long lastCastTime;
+    public static Long lastPotTime;
+    public static Long lastManaTime;
+
     /*
      Constructor where we initialize timing variables and objects
      */
@@ -22,6 +29,10 @@ public class Core {
         healer = Healer.getInstance();
         caveBot = CaveBot.getInstance();
         misc = Misc.getInstance();
+
+        lastCastTime = System.currentTimeMillis();
+        lastPotTime = System.currentTimeMillis();
+        lastManaTime = System.currentTimeMillis();
     }
 
     /*
@@ -37,15 +48,28 @@ public class Core {
                 if (!setBPS) {
                     setBPS();
                 }
+
+                //refresh canPot and canCast bools
+                if (!canCast && System.currentTimeMillis() - lastCastTime > castDelay) {
+                    canCast = true;
+                }
+                if (!canPot && System.currentTimeMillis() - lastPotTime > 1200) {
+                    canPot = true;
+                }
+
+                //now heal
                 if (GUI.highHealCheck.isSelected() || GUI.lowHealCheck.isSelected() || GUI.manaRestoreCheck.isSelected()) {
                     healer.heal();
                 }
+
+                //loot items
                 if (GUI.lootCheck.isSelected()) {
                     Looter.getInstance().findLoot();
                 }
+
+                //do the misc things
+                misc.doMisc();
             }
-            //do the misc things
-            misc.doMisc();
 
             //check to see if hunting is started and that the user has had
             //enough time to tab back to the game. then cycle through hunting bot
