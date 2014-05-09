@@ -1,5 +1,6 @@
 package Healer;
 
+import CaveBot.CaveBot;
 import Core.ZezeniaHandler;
 import GUI.GUI;
 import java.awt.Color;
@@ -20,15 +21,6 @@ public class Healer {
     private boolean needHpLow;
     //Mana variables
     private boolean needMpHigh;
-    //Timing variables
-    private boolean canCast = true;
-    private boolean canPot = true;
-
-    //track the last time potions and spells were cast
-    private static Long lastCastTime;
-    private static Long lastPotTime;
-    private static Long lastManaTime;
-    private final int delay = 1050;
 
     //location objects
     private Point oldLocation;
@@ -49,12 +41,6 @@ public class Healer {
         needHpHigh = false;
         needHpLow = false;
         needMpHigh = false;
-        canCast = true;
-        canPot = true;
-
-        lastCastTime = System.currentTimeMillis();
-        lastPotTime = System.currentTimeMillis();
-        lastManaTime = System.currentTimeMillis();
 
         reader = ZezeniaHandler.getInstance();
     }
@@ -73,13 +59,6 @@ public class Healer {
      Brain of the healer.
      */
     public void heal() {
-        //refresh canPot and canCast bools
-        if (!canCast && System.currentTimeMillis() - lastCastTime > delay) {
-            canCast = true;
-        }
-        if (!canPot && System.currentTimeMillis() - lastPotTime > 1200) {
-            canPot = true;
-        }
 
         //if healing is enabled, then heal
         if (GUI.highHealCheck.isSelected() || GUI.lowHealCheck.isSelected()) {
@@ -87,9 +66,10 @@ public class Healer {
             restoreHealth();
         }
 
-        if (GUI.manaRestoreCheck.isSelected() && System.currentTimeMillis() - lastManaTime > 1200) {
+        if (GUI.manaRestoreCheck.isSelected() && System.currentTimeMillis() - CaveBot.lastManaTime > 1200) {
             checkMana();
             restoreMana();
+
         }
     }
 
@@ -127,10 +107,10 @@ public class Healer {
      */
     private void restoreHealth() {
         if (needHpLow == true) {
-            if (GUI.spellCheck.isSelected() && canCast) {
+            if (GUI.spellCheck.isSelected() && CaveBot.canCast) {
                 spellHeal();
             }
-            if (GUI.healthPotionCheck.isSelected() && canPot) {
+            if (GUI.healthPotionCheck.isSelected() && CaveBot.canPot) {
                 useHealthPotion();
                 System.out.println("using a health potion");
             }
@@ -138,7 +118,7 @@ public class Healer {
             needHpHigh = false;
             return;
         }
-        if (needHpHigh == true && canCast) {
+        if (needHpHigh == true && CaveBot.canCast) {
             if (GUI.spellCheck.isSelected()) {
                 spellHeal();
             }
@@ -150,7 +130,7 @@ public class Healer {
      Restores mana if checkMana decided it was neccessary.
      */
     private void restoreMana() {
-        if (GUI.manaRestoreCheck.isSelected() && ((needMpHigh == true) && canPot)) {
+        if (GUI.manaRestoreCheck.isSelected() && ((needMpHigh == true) && CaveBot.canPot)) {
             useManaPotion();
             needMpHigh = false;
         }
@@ -163,15 +143,15 @@ public class Healer {
         if (reader.getHealth() < Integer.valueOf(GUI.lowHealBox.getText())) {
             reader.robot.keyPress(KeyEvent.VK_F11);
             reader.robot.keyRelease(KeyEvent.VK_F11);
-            canCast = false;
-            lastCastTime = System.currentTimeMillis();
+            CaveBot.canCast = false;
+            CaveBot.lastCastTime = System.currentTimeMillis();
             return;
         }
         if (reader.getHealth() < Integer.valueOf(GUI.highHealBox.getText())) {
             reader.robot.keyPress(KeyEvent.VK_F12);
             reader.robot.keyRelease(KeyEvent.VK_F12);
-            canCast = false;
-            lastCastTime = System.currentTimeMillis();
+            CaveBot.canCast = false;
+            CaveBot.lastCastTime = System.currentTimeMillis();
             return;
         }
     }
@@ -181,7 +161,7 @@ public class Healer {
      Finally, return to old location
      */
     private void useManaPotion() {
-        if (canPot) {
+        if (CaveBot.canPot) {
             System.out.println("using mana potion");
             //save old location so we can move back there afterwards
             Point pastLocation = new Point(MouseInfo.getPointerInfo().getLocation());
@@ -208,9 +188,9 @@ public class Healer {
             if (!GUI.huntingStarted) {
                 reader.robot.mouseMove(pastLocation.x, pastLocation.y);
             }
-            canPot = false;
-            lastManaTime = System.currentTimeMillis();
-            lastPotTime = System.currentTimeMillis();
+            CaveBot.canPot = false;
+            CaveBot.lastPotTime = System.currentTimeMillis();
+            CaveBot.lastManaTime = System.currentTimeMillis();
             needMpHigh = false;
         }
     }
@@ -220,7 +200,7 @@ public class Healer {
      Finally, return to old location
      */
     private void useHealthPotion() {
-        if (canPot) {
+        if (CaveBot.canPot) {
             oldLocation = new Point(MouseInfo.getPointerInfo().getLocation());
 
             healthPotionX = screenSize.width - 130;
@@ -246,8 +226,8 @@ public class Healer {
             if (!GUI.huntingStarted) {
                 reader.robot.mouseMove(oldLocation.x, oldLocation.y);
             }
-            canPot = false;
-            lastPotTime = System.currentTimeMillis();
+            CaveBot.canPot = false;
+            CaveBot.lastPotTime = System.currentTimeMillis();
         }
     }
 

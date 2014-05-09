@@ -180,6 +180,8 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
         sayBox = new javax.swing.JTextField();
         sayButton = new javax.swing.JButton();
         exactButton = new javax.swing.JButton();
+        jLabel39 = new javax.swing.JLabel();
+        spellAttackCheck = new javax.swing.JCheckBox();
         bpTab = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -207,6 +209,12 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         loadScriptMenuButton = new javax.swing.JMenuItem();
@@ -542,6 +550,10 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
         exactButton.setToolTipText("Toggles between exact waypoints where precision is needed, or close waypoints where speed is preferred");
         exactButton.setEnabled(false);
 
+        jLabel39.setText("Spell Atk :");
+
+        spellAttackCheck.setText("Use Attack Spells");
+
         javax.swing.GroupLayout caveBotTabLayout = new javax.swing.GroupLayout(caveBotTab);
         caveBotTab.setLayout(caveBotTabLayout);
         caveBotTabLayout.setHorizontalGroup(
@@ -570,9 +582,15 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
                             .addComponent(jLabel29)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(caveBotTabLayout.createSequentialGroup()
-                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sayBox, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(caveBotTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(caveBotTabLayout.createSequentialGroup()
+                                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sayBox, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(caveBotTabLayout.createSequentialGroup()
+                                .addComponent(jLabel39)
+                                .addGap(18, 18, 18)
+                                .addComponent(spellAttackCheck)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(caveBotTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(caveStartButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
@@ -599,8 +617,11 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
                     .addComponent(jLabel29)
                     .addComponent(deleteLinebutton)
                     .addComponent(exactButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(caveBotTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel39)
+                    .addComponent(spellAttackCheck))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(caveBotTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(caveStartButton)
@@ -744,6 +765,18 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
 
         jLabel19.setText("Adds your current position as a waypoint.");
 
+        jLabel13.setText("F3");
+
+        jLabel34.setText("1 second attack spell.");
+
+        jLabel35.setText("F10");
+
+        jLabel36.setText("Training Spell");
+
+        jLabel37.setText("F11/F12");
+
+        jLabel38.setText("Low/High healing spells");
+
         javax.swing.GroupLayout hotKeyTabLayout = new javax.swing.GroupLayout(hotKeyTab);
         hotKeyTab.setLayout(hotKeyTabLayout);
         hotKeyTabLayout.setHorizontalGroup(
@@ -767,8 +800,22 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
                         .addComponent(jLabel18))
                     .addGroup(hotKeyTabLayout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jLabel19)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel19))
+                    .addGroup(hotKeyTabLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(hotKeyTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addGroup(hotKeyTabLayout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addGroup(hotKeyTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel34)
+                                    .addComponent(jLabel36)))
+                            .addComponent(jLabel35)
+                            .addComponent(jLabel37)))
+                    .addGroup(hotKeyTabLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel38)))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         hotKeyTabLayout.setVerticalGroup(
             hotKeyTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -785,7 +832,19 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel19)
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel38)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Hotkeys", hotKeyTab);
@@ -1070,6 +1129,7 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1092,6 +1152,12 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1123,6 +1189,7 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
     private javax.swing.JMenuItem saveScriptMenuButton;
     private javax.swing.JTextField sayBox;
     private javax.swing.JButton sayButton;
+    public static javax.swing.JCheckBox spellAttackCheck;
     public static javax.swing.JCheckBox spellCheck;
     public static javax.swing.JTextField spellTrainingBox;
     public static javax.swing.JCheckBox spellTrainingCheck;
