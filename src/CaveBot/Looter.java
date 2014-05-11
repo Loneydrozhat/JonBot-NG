@@ -31,7 +31,7 @@ public class Looter {
     int currentLootBP = 2;
 
     //timing devices
-    private final int corpseCheckingDelay = 10;
+    private final int corpseCheckingDelay = 25;
     private long lastFullCheckTime = 0;
     private long startedLooting = 0;
 
@@ -477,13 +477,11 @@ public class Looter {
         int monsterCorpseBagY = ((numBPS + 2) * 90) + extendedBPVerticalSize + 10;
 
         //if a bp was opened
-        if (jnaCore.findDynAddress(reader.getBackPack(numBPS + 2, 1, true), ZezeniaHandler.base) > 0) {
+        if (bpOpened(numBPS + 2)) {
             startedLooting = System.currentTimeMillis();
             //if there is still loot in the bps first slot
-            while (jnaCore.readMemory(JNACore.getInstance().zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 2, 1, false), ZezeniaHandler.base), 4).getInt(0) > 0
-                    && jnaCore.findDynAddress(reader.getBackPack(numBPS + 2, 1, true), ZezeniaHandler.base) > 0) {
+            while (hasLoot(numBPS + 2) && bpOpened(numBPS + 2)) {
 
-                System.out.println("moved looting cursor to corpse at : " + monsterCorpseBagX + "," + monsterCorpseBagY);
                 reader.robot.mouseMove(monsterCorpseBagX, monsterCorpseBagY);
 
                 //press control and then left click and hold
@@ -492,7 +490,6 @@ public class Looter {
 
                 //and release the button
                 reader.robot.mouseMove(lootBPX, lootBPY);
-                System.out.println("moved looting cursor to loot bp at: " + lootBPX + "," + lootBPY);
                 reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);
                 reader.robot.keyRelease(KeyEvent.VK_CONTROL);
                 reader.robot.delay(20);
@@ -507,14 +504,16 @@ public class Looter {
             stackItems();
         }
 
+        //if hunting isnt started, there will never be more than one corpse
+        //opened at a time, so we can exit here
+        if (!GUI.GUI.huntingStarted) {
+            return;
+        }
         //loot second open corpse
-        if (jnaCore.findDynAddress(reader.getBackPack(numBPS + 3, 1, true), ZezeniaHandler.base) > 0 && jnaCore.findDynAddress(reader.getBackPack(numBPS + 2, 1, true), ZezeniaHandler.base) == 0) {
+        if (bpOpened(numBPS + 3) && !bpOpened(numBPS + 2)) {
             startedLooting = System.currentTimeMillis();
             //if there is still loot in the bps first slot
-            while (jnaCore.readMemory(JNACore.getInstance().zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 3, 1, false), ZezeniaHandler.base), 4).getInt(0) > 0
-                    && jnaCore.findDynAddress(reader.getBackPack(numBPS + 3, 1, true), ZezeniaHandler.base) > 0) {
-
-                System.out.println("moved looting cursor to corpse at : " + monsterCorpseBagX + "," + monsterCorpseBagY);
+            while (hasLoot(numBPS + 3) && bpOpened(numBPS + 3)) {
 
                 reader.robot.mouseMove(monsterCorpseBagX, monsterCorpseBagY);
 
@@ -524,7 +523,6 @@ public class Looter {
 
                 //and release the button
                 reader.robot.mouseMove(lootBPX, lootBPY);
-                System.out.println("moved looting cursor to loot bp at: " + lootBPX + "," + lootBPY);
                 reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);
                 reader.robot.keyRelease(KeyEvent.VK_CONTROL);
                 reader.robot.delay(20);
@@ -540,14 +538,10 @@ public class Looter {
         }
 
         //loot 3rd open corpse
-        if (jnaCore.findDynAddress(reader.getBackPack(numBPS + 4, 1, true), ZezeniaHandler.base) > 0 && jnaCore.findDynAddress(reader.getBackPack(numBPS + 2, 1, true), ZezeniaHandler.base) == 0
-                && jnaCore.findDynAddress(reader.getBackPack(numBPS + 3, 1, true), ZezeniaHandler.base) == 0) {
+        if (bpOpened(numBPS + 4) && !bpOpened(numBPS + 3) && !bpOpened(numBPS + 2)) {
             startedLooting = System.currentTimeMillis();
             //if there is still loot in the bps first slot
-            while (jnaCore.readMemory(JNACore.getInstance().zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 4, 1, false), ZezeniaHandler.base), 4).getInt(0) > 0
-                    && jnaCore.findDynAddress(reader.getBackPack(numBPS + 4, 1, true), ZezeniaHandler.base) > 0) {
-
-                System.out.println("moved looting cursor to corpse at : " + monsterCorpseBagX + "," + monsterCorpseBagY);
+            while (hasLoot(numBPS + 4) && bpOpened(numBPS + 4)) {
 
                 reader.robot.mouseMove(monsterCorpseBagX, monsterCorpseBagY);
 
@@ -557,7 +551,6 @@ public class Looter {
 
                 //and release the button
                 reader.robot.mouseMove(lootBPX, lootBPY);
-                System.out.println("moved looting cursor to loot bp at: " + lootBPX + "," + lootBPY);
                 reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);
                 reader.robot.keyRelease(KeyEvent.VK_CONTROL);
                 reader.robot.delay(20);
@@ -576,10 +569,24 @@ public class Looter {
         //Move back to old location
         reader.robot.mouseMove(oldLocation.x, oldLocation.y);
     }
+
+    /*
+     Returns true if the specified bp was opened
+     */
+    private boolean bpOpened(int bp) {
+        return jnaCore.findDynAddress(reader.getBackPack(bp, 1, true), ZezeniaHandler.base) > 0;
+    }
+
+    /*
+     Returns true if there is loot in the specified bp
+     */
+    private boolean hasLoot(int bp) {
+        return jnaCore.readMemory(JNACore.getInstance().zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(bp, 1, false), ZezeniaHandler.base), 4).getInt(0) > 0;
+    }
+
     /*
      Stacks similar items in the loot bp
      */
-
     private void stackItems() {
 
         int oldDelay = reader.robot.getAutoDelay();
@@ -653,6 +660,7 @@ public class Looter {
             }
         }
     }
+
 
     /*
      Close the open corpse
