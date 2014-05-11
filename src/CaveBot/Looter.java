@@ -59,7 +59,6 @@ public class Looter {
      Searches for loot near the player, and if it finds it, it loots it.
      */
     public void findLoot() {
-        //checkForFullBP();
         if (CaveBot.getInstance().isLooting() && !CaveBot.getInstance().isAttacking()) {
             clickAroundPlayer();
         }
@@ -71,6 +70,7 @@ public class Looter {
                 lootCorpses();
                 closeCorpses();
             }
+            CaveBot.getInstance().setLooting(false);
             reader.robot.mouseMove(oldLocation.x, oldLocation.y);
         }
         //if enough time has passed, check and see if our bp is full.
@@ -78,7 +78,6 @@ public class Looter {
             checkForFullBP();
             reader.robot.mouseMove(oldLocation.x, oldLocation.y);
         }
-        CaveBot.getInstance().setLooting(false);
     }
 
     /*
@@ -662,6 +661,7 @@ public class Looter {
         reader.robot.mouseMove(dimensions.width - 10, ((Core.Core.returnNumberOfBackpacks() + 2) * 90) + 210);
         reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
         reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);
+        reader.robot.delay(100);
     }
 
     public boolean contains(final Color[] array, final Color value) {
