@@ -303,7 +303,7 @@ public class Walker {
         movingWest = false;
         movingEast = false;
         lastMovementTime = 0;
-        movementDelay = 10;
+        movementDelay = 100;
         xDestination = 0;
         yDestination = 0;
     }

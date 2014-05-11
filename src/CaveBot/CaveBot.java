@@ -111,7 +111,7 @@ public class CaveBot {
      */
     public void nextLine() {
         currentScriptLine = currentScriptLine + 1;
-        if (currentScriptLine == finalScriptLine + 1) {
+        if (currentScriptLine > finalScriptLine) {
             currentScriptLine = 0;
         }
         interpretLine();

@@ -67,7 +67,7 @@ public class Looter {
         if (bpOpened()) {
             while (bpOpened() && (!GUI.GUI.isPaused || !GUI.GUI.caveBotIsPaused)) {
                 Walker.getInstance().stopMoving();
-                lootCorpses();
+                checkForLoot();
                 closeCorpses();
             }
             CaveBot.getInstance().setLooting(false);
@@ -460,21 +460,9 @@ public class Looter {
     /*
      Drags the loot into the loot bp.
      */
-    private void lootCorpses() {
+    private void checkForLoot() {
         System.out.println("looting a corpse");
-
-        //Set the loot bp location
-        int lootBPX = 0;
-        int lootBPY = 0;
-
         int numBPS = Core.Core.returnNumberOfBackpacks();
-
-        lootBPX = dimensions.width - 130;
-        lootBPY = ((numBPS + 1) * 90) + extendedBPVerticalSize + 10;
-
-        //set the X and Y for the monsterCorpseLocation
-        int monsterCorpseBagX = dimensions.width - 130;
-        int monsterCorpseBagY = ((numBPS + 2) * 90) + extendedBPVerticalSize + 10;
 
         //if a bp was opened
         if (bpOpened(numBPS + 2)) {
@@ -482,19 +470,7 @@ public class Looter {
             //if there is still loot in the bps first slot
             while (hasLoot(numBPS + 2) && bpOpened(numBPS + 2)) {
 
-                reader.robot.mouseMove(monsterCorpseBagX, monsterCorpseBagY);
-
-                //press control and then left click and hold
-                reader.robot.keyPress(KeyEvent.VK_CONTROL);
-                reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
-
-                //and release the button
-                reader.robot.mouseMove(lootBPX, lootBPY);
-                reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);
-                reader.robot.keyRelease(KeyEvent.VK_CONTROL);
-                reader.robot.delay(20);
-                reader.robot.keyPress(KeyEvent.VK_ENTER);
-                reader.robot.keyRelease(KeyEvent.VK_ENTER);
+                lootCorpses();
 
                 if (System.currentTimeMillis() - startedLooting > 300) {
                     closeCorpses();
@@ -509,25 +485,14 @@ public class Looter {
         if (!GUI.GUI.huntingStarted) {
             return;
         }
+
         //loot second open corpse
         if (bpOpened(numBPS + 3) && !bpOpened(numBPS + 2)) {
             startedLooting = System.currentTimeMillis();
             //if there is still loot in the bps first slot
             while (hasLoot(numBPS + 3) && bpOpened(numBPS + 3)) {
 
-                reader.robot.mouseMove(monsterCorpseBagX, monsterCorpseBagY);
-
-                //press control and then left click and hold
-                reader.robot.keyPress(KeyEvent.VK_CONTROL);
-                reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
-
-                //and release the button
-                reader.robot.mouseMove(lootBPX, lootBPY);
-                reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);
-                reader.robot.keyRelease(KeyEvent.VK_CONTROL);
-                reader.robot.delay(20);
-                reader.robot.keyPress(KeyEvent.VK_ENTER);
-                reader.robot.keyRelease(KeyEvent.VK_ENTER);
+                lootCorpses();
 
                 if (System.currentTimeMillis() - startedLooting > 300) {
                     closeCorpses();
@@ -543,19 +508,7 @@ public class Looter {
             //if there is still loot in the bps first slot
             while (hasLoot(numBPS + 4) && bpOpened(numBPS + 4)) {
 
-                reader.robot.mouseMove(monsterCorpseBagX, monsterCorpseBagY);
-
-                //press control and then left click and hold
-                reader.robot.keyPress(KeyEvent.VK_CONTROL);
-                reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
-
-                //and release the button
-                reader.robot.mouseMove(lootBPX, lootBPY);
-                reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);
-                reader.robot.keyRelease(KeyEvent.VK_CONTROL);
-                reader.robot.delay(20);
-                reader.robot.keyPress(KeyEvent.VK_ENTER);
-                reader.robot.keyRelease(KeyEvent.VK_ENTER);
+                lootCorpses();
 
                 if (System.currentTimeMillis() - startedLooting > 300) {
                     closeCorpses();
@@ -563,11 +516,37 @@ public class Looter {
                 }
             }
             stackItems();
-            reader.robot.mouseMove(oldLocation.x, oldLocation.y);;
         }
 
         //Move back to old location
         reader.robot.mouseMove(oldLocation.x, oldLocation.y);
+    }
+
+    /*
+     Drags the loot from the monsers corpse to the loot backpack
+     */
+    private void lootCorpses() {
+        int numBPS = Core.Core.returnNumberOfBackpacks();
+        //Set the loot bp location
+        int lootBPX = dimensions.width - 130;
+        int lootBPY = ((numBPS + 1) * 90) + extendedBPVerticalSize + 10;
+        //set the X and Y for the monsterCorpseLocation
+        int monsterCorpseBagX = dimensions.width - 130;
+        int monsterCorpseBagY = ((numBPS + 2) * 90) + extendedBPVerticalSize + 10;
+
+        reader.robot.mouseMove(monsterCorpseBagX, monsterCorpseBagY);
+
+        //press control and then left click and hold
+        reader.robot.keyPress(KeyEvent.VK_CONTROL);
+        reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
+
+        //and release the button
+        reader.robot.mouseMove(lootBPX, lootBPY);
+        reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);
+        reader.robot.keyRelease(KeyEvent.VK_CONTROL);
+        reader.robot.delay(20);
+        reader.robot.keyPress(KeyEvent.VK_ENTER);
+        reader.robot.keyRelease(KeyEvent.VK_ENTER);
     }
 
     /*
@@ -585,6 +564,35 @@ public class Looter {
     }
 
     /*
+     Returns true if there is loot in the specified slot
+     */
+    private boolean lootInSlot(int bp, int slot) {
+        return jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(bp, slot, true), ZezeniaHandler.base), 4).getInt(0) != 0;
+    }
+
+    /*
+     Returns true if the specified slots in the specified bp, contain the same
+     items.
+     */
+    private boolean slotsHaveSameItems(int bp, int slot1, int slot2) {
+        return jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(bp, slot1, true), ZezeniaHandler.base), 4).getInt(0)
+                == jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(bp, slot2, true), ZezeniaHandler.base), 4).getInt(0);
+    }
+
+    /*
+     Returns true if the specified slot contains a stackable item that is not fully
+     stacked yet
+     */
+    private boolean canBeStacked(int bp, int slot) {
+        //return false if there is nothing in that slot
+        if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(bp, slot, false), ZezeniaHandler.base), 4).getInt(0) == 0) {
+            return false;
+        }
+        //otherwise return whether or not the slot is already full
+        return jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(bp, slot, false), ZezeniaHandler.base), 4).getInt(0) < 100;
+    }
+
+    /*
      Stacks similar items in the loot bp
      */
     private void stackItems() {
@@ -597,7 +605,7 @@ public class Looter {
         int lootBPY = (numBPS * 90) + extendedBPVerticalSize + 105;
 
         //if there is nothing to stack, return
-        if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 1, true), ZezeniaHandler.base), 4).getInt(0) == 0) {
+        if (!lootInSlot(Core.Core.returnNumberOfBackpacks() + 1, 1)) {
             return;
         }
 
@@ -605,11 +613,9 @@ public class Looter {
         reader.robot.setAutoDelay(stackDelay);
 
         //and if the first and third slots contain the same type of item
-        if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 1, true), ZezeniaHandler.base), 4).getInt(0)
-                == jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, true), ZezeniaHandler.base), 4).getInt(0)) {
+        if (slotsHaveSameItems(numBPS + 1, 1, 3)) {
             //if the third slot is a stack of less than 100
-            if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, false), ZezeniaHandler.base), 4).getInt(0) < 100
-                    && jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, false), ZezeniaHandler.base), 4).getInt(0) > 0) {
+            if (canBeStacked(numBPS + 1, 3)) {
                 reader.robot.mouseMove(lootBPX, lootBPY);
                 reader.robot.keyPress(KeyEvent.VK_CONTROL);
                 reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
@@ -623,11 +629,9 @@ public class Looter {
             }
         }
         //if the first and second slots are the same item
-        if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 1, true), ZezeniaHandler.base), 4).getInt(0)
-                == jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 2, true), ZezeniaHandler.base), 4).getInt(0)) {
+        if (slotsHaveSameItems(numBPS + 1, 1, 2)) {
             //if the second slot has less than 100 items
-            if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 2, false), ZezeniaHandler.base), 4).getInt(0) < 100
-                    && jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 2, false), ZezeniaHandler.base), 4).getInt(0) > 0) {
+            if (canBeStacked(numBPS + 1, 2)) {
                 reader.robot.mouseMove(lootBPX, lootBPY);
                 reader.robot.keyPress(KeyEvent.VK_CONTROL);
                 reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
@@ -642,11 +646,9 @@ public class Looter {
         }
 
         //finally, check the 2nd and third after stacking the previous two
-        if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 2, true), ZezeniaHandler.base), 4).getInt(0)
-                == jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, true), ZezeniaHandler.base), 4).getInt(0)) {
+        if (slotsHaveSameItems(numBPS + 1, 2, 3)) {
             //if the third slot has less than 100 items
-            if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, false), ZezeniaHandler.base), 4).getInt(0) < 100
-                    && jnaCore.readMemory(jnaCore.zezeniaProcessHandle, jnaCore.findDynAddress(reader.getBackPack(numBPS + 1, 3, false), ZezeniaHandler.base), 4).getInt(0) > 0) {
+            if (canBeStacked(numBPS + 1, 3)) {
                 reader.robot.mouseMove(lootBPX + 40, lootBPY);
                 reader.robot.keyPress(KeyEvent.VK_CONTROL);
                 reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
