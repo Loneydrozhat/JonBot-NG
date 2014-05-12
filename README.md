@@ -54,10 +54,15 @@ Compilation instructions
 Initial Zezenia Setup
 ======================
 Start Zezenia.
+
 Enable dual interface.
+
 Enable Force new windows to the right.
+
 Enable Classic right click.
+
 Move all non bp windows to the left hand side of the screen.
+
 
 ================
 Non-Cavebot Use
