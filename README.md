@@ -117,4 +117,7 @@ adding waypoints to the current script.
 
 2) - You can add a waypoint either by pressing 'Alt+a', or the add waypoint buttons in the bot.
 
+2a) - Waypoints are best when you can draw a straight line between them, and there is nothing in the way. The bot can
+maneuver a little, but it is more optimal to not make it do so.
+
 3) - When finished, save your script.
