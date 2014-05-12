@@ -24,6 +24,17 @@ JIntelliType - http://code.google.com/p/jintellitype/
 DS Explorer - https://code.google.com/p/dsexplorer/
 
 
+====================
+System Requirements
+====================
+64 bit pc.
+
+Dual core cpu. (can't be old an slow is all).
+
+Java 8
+
+
+
 =========================
 Compilation instructions
 =========================
@@ -38,6 +49,15 @@ Compilation instructions
 
 5) - Enjoy.
 
+
+======================
+Initial Zezenia Setup
+======================
+Start Zezenia.
+Enable dual interface.
+Enable Force new windows to the right.
+Enable Classic right click.
+Move all non bp windows to the left hand side of the screen.
 
 ================
 Non-Cavebot Use
