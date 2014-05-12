@@ -22,8 +22,8 @@ public class Walker {
     //timing objects controlling the speed of movement attempts
     //too low a value results in keypresses being lost and not reaching the client
     //too high results in slow movement of the character.
-    private int movementDelay = 100;
-    private final int robotDelay = 25;
+    private int movementDelay = 125;
+    private final int robotDelay = 50;
 
     //the location to move to
     private int xDestination = 0;

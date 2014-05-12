@@ -25,15 +25,11 @@ public class Looter {
     //mouse information
     private Point oldLocation;
 
-    //color of background
-    private final Color[] bpNotOpenedColors = {new Color(25, 25, 25), new Color(26, 26, 26), new Color(27, 27, 27), new Color(28, 28, 28), new Color(29, 29, 29), new Color(30, 30, 30)};
-
     int currentLootBP = 2;
 
     //timing devices
     private final int corpseCheckingDelay = 25;
     private long lastFullCheckTime = 0;
-    private long startedLooting = 0;
 
     /*
      Private constructor for singleton creation
@@ -68,7 +64,6 @@ public class Looter {
             while (bpOpened() && (!GUI.GUI.isPaused || !GUI.GUI.caveBotIsPaused)) {
                 Walker.getInstance().stopMoving();
                 checkForLoot();
-                closeCorpses();
             }
             CaveBot.getInstance().setLooting(false);
             reader.robot.mouseMove(oldLocation.x, oldLocation.y);
@@ -382,13 +377,13 @@ public class Looter {
     }
 
     /*
-     Returns true if a new bp has been opened, and sets the specified bps
-     as needing to be looted.
+     Returns true if a new bp has been opened.
      */
     private boolean bpOpened() {
-        int monsterCorpseBagX = dimensions.width - 130;
-        int monsterCorpseBagY = ((Core.Core.returnNumberOfBackpacks() + 2) * 90) + extendedBPVerticalSize;
-        return !contains(bpNotOpenedColors, reader.robot.getPixelColor(monsterCorpseBagX, monsterCorpseBagY));
+        int bps = Core.Core.returnNumberOfBackpacks();
+        return bpOpened(bps + 2) || bpOpened(bps + 3) || bpOpened(bps + 4)
+                || bpOpened(bps + 5) || bpOpened(bps + 6) || bpOpened(bps + 7)
+                || bpOpened(bps + 8) || bpOpened(bps + 9) || bpOpened(bps + 10);
     }
 
     /*
@@ -461,23 +456,18 @@ public class Looter {
      Drags the loot into the loot bp.
      */
     private void checkForLoot() {
-        System.out.println("looting a corpse");
+        System.out.println("Checking for loot.");
         int numBPS = Core.Core.returnNumberOfBackpacks();
 
         //if a bp was opened
         if (bpOpened(numBPS + 2)) {
-            startedLooting = System.currentTimeMillis();
+            System.out.println("Looting first corpse.");
             //if there is still loot in the bps first slot
             while (hasLoot(numBPS + 2) && bpOpened(numBPS + 2)) {
-
                 lootCorpses();
-
-                if (System.currentTimeMillis() - startedLooting > 300) {
-                    closeCorpses();
-                    break;
-                }
+                stackItems();
             }
-            stackItems();
+            closeCorpses();
         }
 
         //if hunting isnt started, there will never be more than one corpse
@@ -488,34 +478,90 @@ public class Looter {
 
         //loot second open corpse
         if (bpOpened(numBPS + 3) && !bpOpened(numBPS + 2)) {
-            startedLooting = System.currentTimeMillis();
+            System.out.println("Looting second corpse.");
             //if there is still loot in the bps first slot
             while (hasLoot(numBPS + 3) && bpOpened(numBPS + 3)) {
-
                 lootCorpses();
-
-                if (System.currentTimeMillis() - startedLooting > 300) {
-                    closeCorpses();
-                    break;
-                }
+                stackItems();
             }
-            stackItems();
+            closeCorpses();
         }
 
         //loot 3rd open corpse
         if (bpOpened(numBPS + 4) && !bpOpened(numBPS + 3) && !bpOpened(numBPS + 2)) {
-            startedLooting = System.currentTimeMillis();
+            System.out.println("Looting third corpse.");
             //if there is still loot in the bps first slot
             while (hasLoot(numBPS + 4) && bpOpened(numBPS + 4)) {
-
                 lootCorpses();
-
-                if (System.currentTimeMillis() - startedLooting > 300) {
-                    closeCorpses();
-                    break;
-                }
+                stackItems();
             }
-            stackItems();
+            closeCorpses();
+        }
+
+        //loot 4th open corpse
+        if (bpOpened(numBPS + 5) && !bpOpened(numBPS + 4) && !bpOpened(numBPS + 3) && !bpOpened(numBPS + 2)) {
+            System.out.println("Looting fourth corpse.");
+            //if there is still loot in the bps first slot
+            while (hasLoot(numBPS + 5) && bpOpened(numBPS + 5)) {
+                lootCorpses();
+                stackItems();
+            }
+            closeCorpses();
+        }
+
+        //loot 5th open corpse
+        if (bpOpened(numBPS + 6) && !bpOpened(numBPS + 5) && !bpOpened(numBPS + 4) && !bpOpened(numBPS + 3) && !bpOpened(numBPS + 2)) {
+            System.out.println("Looting fifth corpse.");
+            //if there is still loot in the bps first slot
+            while (hasLoot(numBPS + 6) && bpOpened(numBPS + 6)) {
+                lootCorpses();
+                stackItems();
+            }
+            closeCorpses();
+        }
+
+        //loot 6th open corpse
+        if (bpOpened(numBPS + 7) && !bpOpened(numBPS + 6) && !bpOpened(numBPS + 5) && !bpOpened(numBPS + 4) && !bpOpened(numBPS + 3) && !bpOpened(numBPS + 2)) {
+            System.out.println("Looting sixth corpse.");
+            //if there is still loot in the bps first slot
+            while (hasLoot(numBPS + 7) && bpOpened(numBPS + 7)) {
+                lootCorpses();
+                stackItems();
+            }
+            closeCorpses();
+        }
+
+        //loot 7th open corpse
+        if (bpOpened(numBPS + 8) && !bpOpened(numBPS + 7) && !bpOpened(numBPS + 6) && !bpOpened(numBPS + 5) && !bpOpened(numBPS + 4) && !bpOpened(numBPS + 3) && !bpOpened(numBPS + 2)) {
+            System.out.println("Looting seventh corpse.");
+            //if there is still loot in the bps first slot
+            while (hasLoot(numBPS + 8) && bpOpened(numBPS + 8)) {
+                lootCorpses();
+                stackItems();
+            }
+            closeCorpses();
+        }
+
+        //loot 8th open corpse
+        if (bpOpened(numBPS + 9) && !bpOpened(numBPS + 8) && !bpOpened(numBPS + 7) && !bpOpened(numBPS + 6) && !bpOpened(numBPS + 5) && !bpOpened(numBPS + 4) && !bpOpened(numBPS + 3) && !bpOpened(numBPS + 2)) {
+            System.out.println("Looting eigth corpse.");
+            //if there is still loot in the bps first slot
+            while (hasLoot(numBPS + 9) && bpOpened(numBPS + 9)) {
+                lootCorpses();
+                stackItems();
+            }
+            closeCorpses();
+        }
+
+        //loot 9th open corpse
+        if (bpOpened(numBPS + 10) && !bpOpened(numBPS + 9) && !bpOpened(numBPS + 8) && !bpOpened(numBPS + 7) && !bpOpened(numBPS + 6) && !bpOpened(numBPS + 5) && !bpOpened(numBPS + 4) && !bpOpened(numBPS + 3) && !bpOpened(numBPS + 2)) {
+            System.out.println("Looting eigth corpse.");
+            //if there is still loot in the bps first slot
+            while (hasLoot(numBPS + 10) && bpOpened(numBPS + 10)) {
+                lootCorpses();
+                stackItems();
+            }
+            closeCorpses();
         }
 
         //Move back to old location
@@ -526,6 +572,7 @@ public class Looter {
      Drags the loot from the monsers corpse to the loot backpack
      */
     private void lootCorpses() {
+        System.out.println("Looting a corpse.");
         int numBPS = Core.Core.returnNumberOfBackpacks();
         //Set the loot bp location
         int lootBPX = dimensions.width - 130;
@@ -596,6 +643,7 @@ public class Looter {
      Stacks similar items in the loot bp
      */
     private void stackItems() {
+        System.out.println("Stacking items");
 
         int oldDelay = reader.robot.getAutoDelay();
         int stackDelay = 20;
@@ -614,6 +662,7 @@ public class Looter {
 
         //and if the first and third slots contain the same type of item
         if (slotsHaveSameItems(numBPS + 1, 1, 3)) {
+            System.out.println("first and third slots can be stacked");
             //if the third slot is a stack of less than 100
             if (canBeStacked(numBPS + 1, 3)) {
                 reader.robot.mouseMove(lootBPX, lootBPY);
@@ -630,6 +679,7 @@ public class Looter {
         }
         //if the first and second slots are the same item
         if (slotsHaveSameItems(numBPS + 1, 1, 2)) {
+            System.out.println("first and second slots can be stacked");
             //if the second slot has less than 100 items
             if (canBeStacked(numBPS + 1, 2)) {
                 reader.robot.mouseMove(lootBPX, lootBPY);
@@ -647,6 +697,7 @@ public class Looter {
 
         //finally, check the 2nd and third after stacking the previous two
         if (slotsHaveSameItems(numBPS + 1, 2, 3)) {
+            System.out.println("second and third slots can be stacked");
             //if the third slot has less than 100 items
             if (canBeStacked(numBPS + 1, 3)) {
                 reader.robot.mouseMove(lootBPX + 40, lootBPY);
@@ -663,11 +714,11 @@ public class Looter {
         }
     }
 
-
     /*
      Close the open corpse
      */
     private void closeCorpses() {
+        System.out.println("Closing a corpse.");
         reader.robot.mouseMove(dimensions.width - 10, ((Core.Core.returnNumberOfBackpacks() + 2) * 90) + 210);
         reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
         reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);

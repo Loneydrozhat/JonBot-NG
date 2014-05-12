@@ -17,8 +17,8 @@ public class Targeting {
     private final int playerLowerLimit;
     private final Point center;
     //how long to wait before clicking a target
-    private final int targetingDelay = 10;
-    private final int targetCheckFrequency = 100;
+    private final int targetingDelay = 25;
+    private final int targetCheckFrequency = 300;
     private long lastCheckTime = 0;
 
 
