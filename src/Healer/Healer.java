@@ -144,7 +144,7 @@ public class Healer {
             reader.robot.keyPress(KeyEvent.VK_F11);
             reader.robot.keyRelease(KeyEvent.VK_F11);
             Core.canCast = false;
-            Core.lastCastTime = System.currentTimeMillis();
+            Core.lastCastTime = System.currentTimeMillis()+randomDelay();
             return;
         }
         if (reader.getHealth() < Integer.valueOf(GUI.highHealBox.getText())) {
@@ -229,6 +229,13 @@ public class Healer {
             Core.canPot = false;
             Core.lastPotTime = System.currentTimeMillis();
         }
+    }
+
+    /*
+    Returns a random number between 0, and 200.
+    */
+    private long randomDelay() {
+        return (long) (Math.random()*200);
     }
 
 }

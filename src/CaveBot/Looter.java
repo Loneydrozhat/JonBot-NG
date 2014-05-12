@@ -458,6 +458,7 @@ public class Looter {
     private void checkForLoot() {
         System.out.println("Checking for loot.");
         int numBPS = Core.Core.returnNumberOfBackpacks();
+        oldLocation = MouseInfo.getPointerInfo().getLocation();
 
         //if a bp was opened
         if (bpOpened(numBPS + 2)) {
@@ -662,9 +663,9 @@ public class Looter {
 
         //and if the first and third slots contain the same type of item
         if (slotsHaveSameItems(numBPS + 1, 1, 3)) {
-            System.out.println("first and third slots can be stacked");
             //if the third slot is a stack of less than 100
             if (canBeStacked(numBPS + 1, 3)) {
+                System.out.println("first and third slots can be stacked");
                 reader.robot.mouseMove(lootBPX, lootBPY);
                 reader.robot.keyPress(KeyEvent.VK_CONTROL);
                 reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
@@ -679,9 +680,9 @@ public class Looter {
         }
         //if the first and second slots are the same item
         if (slotsHaveSameItems(numBPS + 1, 1, 2)) {
-            System.out.println("first and second slots can be stacked");
             //if the second slot has less than 100 items
             if (canBeStacked(numBPS + 1, 2)) {
+                System.out.println("first and second slots can be stacked");
                 reader.robot.mouseMove(lootBPX, lootBPY);
                 reader.robot.keyPress(KeyEvent.VK_CONTROL);
                 reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
@@ -697,9 +698,9 @@ public class Looter {
 
         //finally, check the 2nd and third after stacking the previous two
         if (slotsHaveSameItems(numBPS + 1, 2, 3)) {
-            System.out.println("second and third slots can be stacked");
             //if the third slot has less than 100 items
             if (canBeStacked(numBPS + 1, 3)) {
+                System.out.println("second and third slots can be stacked");
                 reader.robot.mouseMove(lootBPX + 40, lootBPY);
                 reader.robot.keyPress(KeyEvent.VK_CONTROL);
                 reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
