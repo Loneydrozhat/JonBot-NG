@@ -61,7 +61,7 @@ public class Looter {
         //save old location so we can move back there afterwards
         oldLocation = MouseInfo.getPointerInfo().getLocation();
         if (bpOpened()) {
-            while (bpOpened() && (!GUI.GUI.isPaused || !GUI.GUI.caveBotIsPaused)) {
+            while (bpOpened() && (!GUI.GUI.isPaused || !GUI.GUI.caveBotIsPaused)  && currentLootBP < 25) {
                 Walker.getInstance().stopMoving();
                 checkForLoot();
             }
@@ -99,6 +99,7 @@ public class Looter {
             closeLootBP();
             reader.robot.delay(100);
             openNextBag();
+            reader.robot.delay(100);
             reader.robot.setAutoDelay(oldDelay);
         }
     }
@@ -467,6 +468,9 @@ public class Looter {
             while (hasLoot(numBPS + 2) && bpOpened(numBPS + 2)) {
                 lootCorpses();
                 stackItems();
+                if (isFull()) {
+                    break;
+                }
             }
             closeCorpses();
         }
@@ -484,6 +488,9 @@ public class Looter {
             while (hasLoot(numBPS + 3) && bpOpened(numBPS + 3)) {
                 lootCorpses();
                 stackItems();
+                if (isFull()) {
+                    break;
+                }
             }
             closeCorpses();
         }
@@ -495,6 +502,9 @@ public class Looter {
             while (hasLoot(numBPS + 4) && bpOpened(numBPS + 4)) {
                 lootCorpses();
                 stackItems();
+                if (isFull()) {
+                    break;
+                }
             }
             closeCorpses();
         }
@@ -506,6 +516,9 @@ public class Looter {
             while (hasLoot(numBPS + 5) && bpOpened(numBPS + 5)) {
                 lootCorpses();
                 stackItems();
+                if (isFull()) {
+                    break;
+                }
             }
             closeCorpses();
         }
@@ -517,6 +530,9 @@ public class Looter {
             while (hasLoot(numBPS + 6) && bpOpened(numBPS + 6)) {
                 lootCorpses();
                 stackItems();
+                if (isFull()) {
+                    break;
+                }
             }
             closeCorpses();
         }
@@ -528,6 +544,9 @@ public class Looter {
             while (hasLoot(numBPS + 7) && bpOpened(numBPS + 7)) {
                 lootCorpses();
                 stackItems();
+                if (isFull()) {
+                    break;
+                }
             }
             closeCorpses();
         }
@@ -539,6 +558,9 @@ public class Looter {
             while (hasLoot(numBPS + 8) && bpOpened(numBPS + 8)) {
                 lootCorpses();
                 stackItems();
+                if (isFull()) {
+                    break;
+                }
             }
             closeCorpses();
         }
@@ -550,6 +572,9 @@ public class Looter {
             while (hasLoot(numBPS + 9) && bpOpened(numBPS + 9)) {
                 lootCorpses();
                 stackItems();
+                if (isFull()) {
+                    break;
+                }
             }
             closeCorpses();
         }
@@ -561,6 +586,9 @@ public class Looter {
             while (hasLoot(numBPS + 10) && bpOpened(numBPS + 10)) {
                 lootCorpses();
                 stackItems();
+                if (isFull()) {
+                    break;
+                }
             }
             closeCorpses();
         }
