@@ -11,7 +11,7 @@ JonBot, the first iteration, watched the pixel colors on the screen, and sent ke
 JonBot 2, the sequel to the first JonBot took the original further with an attempt to add a cavebot to the application. While the endeavor was successful and the bot was functional, the initial setup upon use each time was not user friendly in the least. To this end, development on the second version was halted while I advanced my knowledge.
 
 JonBot-NG seeks to rectify the inadequacies of JonBot2, while at the same time providing a more advanced, more 
-complete, and cleaner tool for the end user. No unwieldly setup. No obscure knowledge required. Start the game. Start the bot. Enjot. Nice, clean, simplistic, and most of all, functional. There are still areas that can be improved, but this software is designed in such a way as to facilitate ease of future development.
+complete, and cleaner tool for the end user. No unwieldly setup. No obscure knowledge required. Start the game. Start the bot. Enjoy. Nice, clean, simplistic, and most of all, functional. There are still areas that can be improved, but this software is designed in such a way as to facilitate ease of future development.
 
 
 ==================
