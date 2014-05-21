@@ -144,7 +144,7 @@ public class Looter {
         }
         //if loot bp is on right hand side
         if (GUI.GUI.sideSelector.getSelectedIndex() == 1) {
-            lootBPY = (Core.Core.returnNumberOfBackpacks() * 90) + 215;
+            lootBPY = (Core.Core.returnNumberOfBackpacks()+1 * 90) + 215;
         }
         reader.robot.mouseMove(lootBPX, lootBPY);
         System.out.println("clicking to close bp at : " + lootBPX + "," + lootBPY);
