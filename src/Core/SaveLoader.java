@@ -45,6 +45,7 @@ public class SaveLoader {
             writer.write(GUI.GUI.arrowBPSelector.getSelectedIndex()+"\n");
             writer.write(GUI.GUI.foodBPSelector.getSelectedIndex()+"\n");
             writer.write(GUI.GUI.lootBPSelector.getSelectedIndex()+"\n");
+            writer.write(GUI.GUI.sideSelector.getSelectedIndex()+"\n");
 
             writer.flush();
             writer.close();
@@ -78,6 +79,7 @@ public class SaveLoader {
                 GUI.GUI.arrowBPSelector.setSelectedIndex(Integer.valueOf(reader.readLine()));
                 GUI.GUI.foodBPSelector.setSelectedIndex(Integer.valueOf(reader.readLine()));
                 GUI.GUI.lootBPSelector.setSelectedIndex(Integer.valueOf(reader.readLine()));
+                GUI.GUI.sideSelector.setSelectedIndex(Integer.valueOf(reader.readLine()));
 
                 reader.close();
             }

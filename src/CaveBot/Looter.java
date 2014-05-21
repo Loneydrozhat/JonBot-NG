@@ -61,7 +61,7 @@ public class Looter {
         //save old location so we can move back there afterwards
         oldLocation = MouseInfo.getPointerInfo().getLocation();
         if (bpOpened()) {
-            while (bpOpened() && (!GUI.GUI.isPaused || !GUI.GUI.caveBotIsPaused)  && currentLootBP < 25) {
+            while (bpOpened() && (!GUI.GUI.isPaused || !GUI.GUI.caveBotIsPaused) && currentLootBP < 25) {
                 Walker.getInstance().stopMoving();
                 checkForLoot();
             }
@@ -90,16 +90,15 @@ public class Looter {
             return;
         }
         //otherwise, check
-        if (isFull()) {
+        if (lootBagIsFull()) {
             System.out.println("bp was detected as full");
             int delay = 25;
             int oldDelay = reader.robot.getAutoDelay();
             reader.robot.setAutoDelay(delay);
             closeExtraBags();
             closeLootBP();
-            reader.robot.delay(100);
+            reader.robot.delay(150);
             openNextBag();
-            reader.robot.delay(100);
             reader.robot.setAutoDelay(oldDelay);
         }
     }
@@ -108,17 +107,19 @@ public class Looter {
      Returns true if there is an object in the last slot of the loot backpack
      regardless of the number of items in that backpacks first slot.
      */
-    private boolean isFull() {
+    private boolean lootBagIsFull() {
         //if there is an item in the last slot of the loot backpack
-        if (jnaCore.findDynAddress(reader.getBackPack(Core.Core.returnNumberOfBackpacks() + 1, 24, false), ZezeniaHandler.base) != 0) {
-            if (jnaCore.readMemory(jnaCore.zezeniaProcessHandle,
-                    jnaCore.findDynAddress(reader.getBackPack(Core.Core.returnNumberOfBackpacks() + 1, 24, false), ZezeniaHandler.base),
-                    4).getInt(0) > 0) {
+        if (bpOpened(Core.Core.returnNumberOfBackpacks() + 1)) {
+            if (lootInSlot(Core.Core.returnNumberOfBackpacks() + 1, 24)) {
                 System.out.println("full bp detected");
                 return true;
             }
         }
-        return false;
+        //we return this below, in the case that the loot bp
+        //is not detected as opened, or was closed somehow.
+        //if it was closed, this below should trigger a chain of events that
+        //will open the loot bp properly.
+        return !bpOpened(Core.Core.returnNumberOfBackpacks() + 1);
     }
 
     /*
@@ -135,8 +136,18 @@ public class Looter {
      Closes the current loot backpack
      */
     private void closeLootBP() {
-        reader.robot.mouseMove(dimensions.width - 10, (Core.Core.returnNumberOfBackpacks() * 90) + extendedBPVerticalSize - 20 + 85);
-        System.out.println("clicking to close bp at : " + (dimensions.width - 10) + "," + ((Core.Core.returnNumberOfBackpacks() * 90) + extendedBPVerticalSize - 20 + 85));
+        int lootBPX = dimensions.width - 10;
+        int lootBPY = 0;
+        //if loot bp is on left hand side.
+        if (GUI.GUI.sideSelector.getSelectedIndex() == 0) {
+            lootBPY = (Core.Core.returnNumberOfBackpacks() * 90) - 65;
+        }
+        //if loot bp is on right hand side
+        if (GUI.GUI.sideSelector.getSelectedIndex() == 1) {
+            lootBPY = (Core.Core.returnNumberOfBackpacks() * 90) + 215;
+        }
+        reader.robot.mouseMove(lootBPX, lootBPY);
+        System.out.println("clicking to close bp at : " + lootBPX + "," + lootBPY);
         reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
         reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);
     }
@@ -145,8 +156,19 @@ public class Looter {
      Opens the next lootbackpack
      */
     private void openNextBag() {
-        int bpX = dimensions.width - 130;
-        int bpY = ((GUI.GUI.lootBPSelector.getSelectedIndex() + 1) * 90) - 30;
+        int bpX = 0;
+        int bpY = 0;
+
+        //if loot bp is on left hand side.
+        if (GUI.GUI.sideSelector.getSelectedIndex() == 0) {
+            bpX = 35;
+            bpY = 70;
+        }
+        //if loot bp is on right hand side
+        if (GUI.GUI.sideSelector.getSelectedIndex() == 1) {
+            bpX = dimensions.width - 130;
+            bpY = ((GUI.GUI.lootBPSelector.getSelectedIndex() + 1) * 90) - 30;
+        }
 
         //now for the long but easy to read code that decides which bp to open next.
         //1st bp column
@@ -468,7 +490,7 @@ public class Looter {
             while (hasLoot(numBPS + 2) && bpOpened(numBPS + 2)) {
                 lootCorpses();
                 stackItems();
-                if (isFull()) {
+                if (lootBagIsFull()) {
                     break;
                 }
             }
@@ -488,7 +510,7 @@ public class Looter {
             while (hasLoot(numBPS + 3) && bpOpened(numBPS + 3)) {
                 lootCorpses();
                 stackItems();
-                if (isFull()) {
+                if (lootBagIsFull()) {
                     break;
                 }
             }
@@ -502,7 +524,7 @@ public class Looter {
             while (hasLoot(numBPS + 4) && bpOpened(numBPS + 4)) {
                 lootCorpses();
                 stackItems();
-                if (isFull()) {
+                if (lootBagIsFull()) {
                     break;
                 }
             }
@@ -516,7 +538,7 @@ public class Looter {
             while (hasLoot(numBPS + 5) && bpOpened(numBPS + 5)) {
                 lootCorpses();
                 stackItems();
-                if (isFull()) {
+                if (lootBagIsFull()) {
                     break;
                 }
             }
@@ -530,7 +552,7 @@ public class Looter {
             while (hasLoot(numBPS + 6) && bpOpened(numBPS + 6)) {
                 lootCorpses();
                 stackItems();
-                if (isFull()) {
+                if (lootBagIsFull()) {
                     break;
                 }
             }
@@ -544,7 +566,7 @@ public class Looter {
             while (hasLoot(numBPS + 7) && bpOpened(numBPS + 7)) {
                 lootCorpses();
                 stackItems();
-                if (isFull()) {
+                if (lootBagIsFull()) {
                     break;
                 }
             }
@@ -558,7 +580,7 @@ public class Looter {
             while (hasLoot(numBPS + 8) && bpOpened(numBPS + 8)) {
                 lootCorpses();
                 stackItems();
-                if (isFull()) {
+                if (lootBagIsFull()) {
                     break;
                 }
             }
@@ -572,7 +594,7 @@ public class Looter {
             while (hasLoot(numBPS + 9) && bpOpened(numBPS + 9)) {
                 lootCorpses();
                 stackItems();
-                if (isFull()) {
+                if (lootBagIsFull()) {
                     break;
                 }
             }
@@ -586,7 +608,7 @@ public class Looter {
             while (hasLoot(numBPS + 10) && bpOpened(numBPS + 10)) {
                 lootCorpses();
                 stackItems();
-                if (isFull()) {
+                if (lootBagIsFull()) {
                     break;
                 }
             }
@@ -603,12 +625,26 @@ public class Looter {
     private void lootCorpses() {
         System.out.println("Looting a corpse.");
         int numBPS = Core.Core.returnNumberOfBackpacks();
+
         //Set the loot bp location
         int lootBPX = dimensions.width - 130;
-        int lootBPY = ((numBPS + 1) * 90) + extendedBPVerticalSize + 10;
+        int lootBPY = 0;
+        if (GUI.GUI.sideSelector.getSelectedIndex() == 0) {
+            lootBPY = (numBPS * 90) - 30;
+        }
+        if (GUI.GUI.sideSelector.getSelectedIndex() == 1) {
+            lootBPY = ((numBPS + 1) * 90) + extendedBPVerticalSize + 10;
+        }
+
         //set the X and Y for the monsterCorpseLocation
         int monsterCorpseBagX = dimensions.width - 130;
-        int monsterCorpseBagY = ((numBPS + 2) * 90) + extendedBPVerticalSize + 10;
+        int monsterCorpseBagY = 0;
+        if (GUI.GUI.sideSelector.getSelectedIndex() == 0) {
+            monsterCorpseBagY = ((numBPS + 1) * 90) - 30;
+        }
+        if (GUI.GUI.sideSelector.getSelectedIndex() == 1) {
+            monsterCorpseBagY = ((numBPS + 2) * 90) + extendedBPVerticalSize + 10;
+        }
 
         reader.robot.mouseMove(monsterCorpseBagX, monsterCorpseBagY);
 
@@ -676,10 +712,17 @@ public class Looter {
 
         int oldDelay = reader.robot.getAutoDelay();
         int stackDelay = 20;
-
         int numBPS = Core.Core.returnNumberOfBackpacks();
+
+        //set loot bp positions
         int lootBPX = dimensions.width - 130;
-        int lootBPY = (numBPS * 90) + extendedBPVerticalSize + 105;
+        int lootBPY = 0;
+        if (GUI.GUI.sideSelector.getSelectedIndex() == 0) {
+            lootBPY = (numBPS * 90) - 30;
+        }
+        if (GUI.GUI.sideSelector.getSelectedIndex() == 1) {
+            lootBPY = ((numBPS + 1) * 90) + extendedBPVerticalSize + 10;
+        }
 
         //if there is nothing to stack, return
         if (!lootInSlot(Core.Core.returnNumberOfBackpacks() + 1, 1)) {
@@ -748,7 +791,17 @@ public class Looter {
      */
     private void closeCorpses() {
         System.out.println("Closing a corpse.");
-        reader.robot.mouseMove(dimensions.width - 10, ((Core.Core.returnNumberOfBackpacks() + 2) * 90) + 210);
+
+        int xPos = dimensions.width - 10;
+        int yPos = 0;
+        if (GUI.GUI.sideSelector.getSelectedIndex() == 0) {
+            yPos = (Core.Core.returnNumberOfBackpacks() * 90) + 25;
+        }
+        if (GUI.GUI.sideSelector.getSelectedIndex() == 1) {
+            yPos = ((Core.Core.returnNumberOfBackpacks() + 2) * 90) + 215;
+        }
+
+        reader.robot.mouseMove(xPos, yPos);
         reader.robot.mousePress(MouseEvent.BUTTON1_MASK);
         reader.robot.mouseRelease(MouseEvent.BUTTON1_MASK);
         reader.robot.delay(100);

@@ -202,6 +202,7 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
+        sideSelector = new javax.swing.JComboBox();
         hotKeyTab = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -672,6 +673,8 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
 
         jLabel25.setText("same option twice.");
 
+        sideSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Left Side","Right Side" }));
+
         javax.swing.GroupLayout bpTabLayout = new javax.swing.GroupLayout(bpTab);
         bpTab.setLayout(bpTabLayout);
         bpTabLayout.setHorizontalGroup(
@@ -699,11 +702,19 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
                             .addComponent(manaBPSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lootBPSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(mainBPSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(31, 31, 31)
                         .addGroup(bpTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel23)
-                            .addComponent(jLabel24)
-                            .addComponent(jLabel25))))
+                            .addGroup(bpTabLayout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(bpTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel24)
+                                    .addComponent(jLabel25)))
+                            .addGroup(bpTabLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel23))
+                            .addGroup(bpTabLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(sideSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(13, 13, 13)))
                 .addContainerGap())
         );
         bpTabLayout.setVerticalGroup(
@@ -742,12 +753,13 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bpTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(foodBPSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel27))
+                    .addComponent(jLabel27)
+                    .addComponent(jLabel23))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bpTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lootBPSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel28)
-                    .addComponent(jLabel23))
+                    .addComponent(sideSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1189,6 +1201,7 @@ public class GUI extends javax.swing.JFrame implements HotkeyListener {
     private javax.swing.JMenuItem saveScriptMenuButton;
     private javax.swing.JTextField sayBox;
     private javax.swing.JButton sayButton;
+    public static javax.swing.JComboBox sideSelector;
     public static javax.swing.JCheckBox spellAttackCheck;
     public static javax.swing.JCheckBox spellCheck;
     public static javax.swing.JTextField spellTrainingBox;
