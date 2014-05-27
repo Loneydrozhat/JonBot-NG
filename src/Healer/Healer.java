@@ -32,6 +32,8 @@ public class Healer {
     private final double pixelPercent = 1.2;
     private final int extendedBPVerticalSize = 285;
 
+    private long lastHealCheck = 0;
+
     private static ZezeniaHandler reader;
 
     /*
@@ -60,16 +62,20 @@ public class Healer {
      */
     public void heal() {
 
-        //if healing is enabled, then heal
-        if (GUI.highHealCheck.isSelected() || GUI.lowHealCheck.isSelected()) {
-            checkHealth();
-            restoreHealth();
-        }
+        if (System.currentTimeMillis() - lastHealCheck > 200) {
+            lastHealCheck = System.currentTimeMillis();
 
-        if (GUI.manaRestoreCheck.isSelected() && System.currentTimeMillis() - Core.lastManaTime > 1200) {
-            checkMana();
-            restoreMana();
+            //if healing is enabled, then heal
+            if (GUI.highHealCheck.isSelected() || GUI.lowHealCheck.isSelected()) {
+                checkHealth();
+                restoreHealth();
+            }
 
+            if (GUI.manaRestoreCheck.isSelected() && System.currentTimeMillis() - Core.lastManaTime > 1200) {
+                checkMana();
+                restoreMana();
+
+            }
         }
     }
 
@@ -141,13 +147,15 @@ public class Healer {
      */
     private void spellHeal() {
         if (reader.getHealth() < Integer.valueOf(GUI.lowHealBox.getText())) {
+            reader.robot.delay((int) randomDelay());
             reader.robot.keyPress(KeyEvent.VK_F11);
             reader.robot.keyRelease(KeyEvent.VK_F11);
             Core.canCast = false;
-            Core.lastCastTime = System.currentTimeMillis()+randomDelay();
+            Core.lastCastTime = System.currentTimeMillis();
             return;
         }
         if (reader.getHealth() < Integer.valueOf(GUI.highHealBox.getText())) {
+            reader.robot.delay((int) randomDelay());
             reader.robot.keyPress(KeyEvent.VK_F12);
             reader.robot.keyRelease(KeyEvent.VK_F12);
             Core.canCast = false;
@@ -180,6 +188,7 @@ public class Healer {
             reader.robot.mouseMove(manaPotionX, manaPotionY);
 
             //right click and use the potion
+            reader.robot.delay((int) randomDelay());
             reader.robot.mousePress(MouseEvent.BUTTON3_MASK);
             reader.robot.mouseRelease(MouseEvent.BUTTON3_MASK);
 
@@ -232,10 +241,14 @@ public class Healer {
     }
 
     /*
-    Returns a random number between 0, and 200.
-    */
+     Returns a random number between 0, and 200.
+     */
     private long randomDelay() {
-        return (long) (Math.random()*200);
+        long delay = (long) (Math.random() * 280);
+        if (delay < 130) {
+            delay = 130;
+        }
+        return delay;
     }
 
 }

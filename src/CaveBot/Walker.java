@@ -22,8 +22,8 @@ public class Walker {
     //timing objects controlling the speed of movement attempts
     //too low a value results in keypresses being lost and not reaching the client
     //too high results in slow movement of the character.
-    private int movementDelay = 100;
-    private final int robotDelay = 50;
+    private int movementDelay = 25;
+    private final int robotDelay = 25;
 
     //the location to move to
     private int xDestination = 0;
@@ -68,7 +68,7 @@ public class Walker {
     public void move() {
         //first, see if previous movement has gotten us to our destination
         //if so, update destination location
-        if (near(xDestination, yDestination)) {
+        if (at(xDestination, yDestination)) {
             CaveBot.getInstance().nextLine();
         }
 

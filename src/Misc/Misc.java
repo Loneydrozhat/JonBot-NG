@@ -20,7 +20,7 @@ public class Misc {
     private final int restockingDelay = 60000;//60 seconds
     private final int eatFoodDelay = 30000;//30 seconds
     private long lastBeepTime = 0;
-    private final int beepDelay = 500;//half of a second between beeps
+    private final int beepDelay = 1000;
 
     private final int rightHandXOffset = 128;
     private final int rightHandYOffset = 130;
@@ -175,7 +175,7 @@ public class Misc {
      Casts a spell when the specified amount of time has passed.
      */
     private void spellTrain() {
-        if (System.currentTimeMillis() - lastTrainTime > 5000) {
+        if (System.currentTimeMillis() - lastTrainTime > 30000) {
             lastTrainTime = System.currentTimeMillis();
             trainingPercent = Integer.valueOf(GUI.GUI.spellTrainingBox.getText()) - 2;
 
