@@ -1,3 +1,13 @@
+What is this?
+==========================
+This is a cheat I made for a small mmorpg I once played.
+
+How does it work?
+==========================
+It searches the list of running processes for the game process, opens the process, and reads memory to obtain
+current active values from the running process. From there the cheat can heal the player, or attack targets all
+automatically without user input adapting as the values obtained from memory change.
+
 JonBot-NG for 64 bit pc's.
 ==========================
 
